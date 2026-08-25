@@ -14,13 +14,16 @@ describe("application color system", () => {
     expect(contrastRatio("#11694a", "#f0f8f4")).toBeGreaterThanOrEqual(4.5);
   });
 
-  test("keeps the light workspace crisp and neutral while preserving text hierarchy", () => {
-    expect(globals).toContain("--workspace-canvas: #f3f5f7;");
-    expect(globals).toContain("--workspace-sidebar: #eff1f4;");
-    expect(globals).toContain("--workspace-memo-list: #f6f7f9;");
+  test("keeps the light workspace achromatic while preserving text hierarchy", () => {
+    expect(globals).toContain("--workspace-canvas: #f2f2f2;");
+    expect(globals).toContain("--workspace-sidebar: #f2f2f2;");
+    expect(globals).toContain("--workspace-memo-list: #f7f7f7;");
     expect(globals).toContain("--workspace-editor: #ffffff;");
-    expect(contrastRatio("#0f172a", "#ffffff")).toBeGreaterThanOrEqual(4.5);
-    expect(contrastRatio("#64748b", "#ffffff")).toBeGreaterThanOrEqual(4.5);
+    expect(globals).toContain("--workspace-selection: #e5e5e5;");
+    expect(globals).toContain("--slate-500-rgb: 115 115 115;");
+    expect(globals).not.toContain("--slate-500-rgb: 100 116 139;");
+    expect(contrastRatio("#222222", "#ffffff")).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio("#737373", "#ffffff")).toBeGreaterThanOrEqual(4.5);
   });
 
   test("keeps dark workspace surfaces distinct without blue-black color casts", () => {

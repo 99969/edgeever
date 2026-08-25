@@ -88,8 +88,8 @@ html[data-edgeever-environment="demo"] body::after {
 
 @layer base {
   :root {
-    --background: 80 11% 96%;
-    --foreground: 224 71% 4%;
+    --background: 0 0% 96%;
+    --foreground: 0 0% 13%;
     --brand-green: #16a06e;
     --brand-green-hover: #12845b;
     --brand-green-muted: #def1e9;
@@ -109,22 +109,23 @@ html[data-edgeever-environment="demo"] body::after {
     --brand-green-800-rgb: 17 83 60;
     --brand-green-900-rgb: 15 68 50;
     --brand-green-950-rgb: 7 37 28;
-    --workspace-canvas: #f3f5f7;
-    --workspace-sidebar: #eff1f4;
-    --workspace-memo-list: #f6f7f9;
+    --workspace-canvas: #f2f2f2;
+    --workspace-sidebar: #f2f2f2;
+    --workspace-memo-list: #f7f7f7;
     --workspace-editor: #ffffff;
-    --workspace-divider: #dde1e7;
-    --workspace-selection: #eef2f6;
-    --slate-50-rgb: 248 250 252;
-    --slate-100-rgb: 241 245 249;
-    --slate-200-rgb: 226 232 240;
-    --slate-300-rgb: 203 213 225;
-    --slate-400-rgb: 148 163 184;
-    --slate-500-rgb: 100 116 139;
-    --slate-600-rgb: 71 85 105;
-    --slate-700-rgb: 51 65 85;
-    --slate-800-rgb: 30 41 59;
-    --slate-900-rgb: 15 23 42;
+    --workspace-divider: #dcdcdc;
+    --workspace-memo-divider: #dedede;
+    --workspace-selection: #e5e5e5;
+    --slate-50-rgb: 250 250 250;
+    --slate-100-rgb: 245 245 245;
+    --slate-200-rgb: 229 229 229;
+    --slate-300-rgb: 212 212 212;
+    --slate-400-rgb: 166 166 166;
+    --slate-500-rgb: 115 115 115;
+    --slate-600-rgb: 82 82 82;
+    --slate-700-rgb: 64 64 64;
+    --slate-800-rgb: 38 38 38;
+    --slate-900-rgb: 24 24 24;
     --dark-surface-rgb: 255 255 255;
     --editor-body-font-size: 0.9375rem;
     --editor-body-line-height: 1.6;
@@ -135,10 +136,10 @@ html[data-edgeever-environment="demo"] body::after {
     --editor-content-max-width: 880px;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 0 0% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 0 0% 13%;
 
     --primary: 158 76% 36%;
     --primary-foreground: 80 11% 96%;
@@ -146,8 +147,8 @@ html[data-edgeever-environment="demo"] body::after {
     --secondary: 158 32% 94%;
     --secondary-foreground: 158 70% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
     --accent: 158 32% 94%;
     --accent-foreground: 158 70% 25%;
@@ -155,8 +156,8 @@ html[data-edgeever-environment="demo"] body::after {
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
     --ring: 158 76% 36%;
 
     --radius: 0.5rem;
@@ -197,6 +198,7 @@ html[data-edgeever-environment="demo"] body::after {
   --workspace-memo-list: #151a17;
   --workspace-editor: #191e1b;
   --workspace-divider: #2a312d;
+  --workspace-memo-divider: #3b4540;
   --workspace-selection: #1d3028;
   --slate-50-rgb: 15 20 17;
   --slate-100-rgb: 21 28 24;
@@ -373,6 +375,14 @@ html[data-edgeever-extension-theme] kbd {
   background: var(--workspace-selection);
 }
 
+.edgeever-memo-divider {
+  border-bottom-color: var(--workspace-memo-divider) !important;
+}
+
+:root.dark .edgeever-workspace-memo-list .edgeever-memo-divider {
+  border-bottom-color: var(--workspace-memo-divider) !important;
+}
+
 html[data-edgeever-extension-theme] .edgeever-workspace-shell {
   background: var(--edgeever-theme-background, var(--workspace-canvas));
 }
@@ -393,6 +403,10 @@ html[data-edgeever-extension-theme] .edgeever-workspace-editor {
 
 html[data-edgeever-extension-theme] .edgeever-workspace-selection {
   background: var(--edgeever-theme-surface-muted, var(--workspace-selection));
+}
+
+html[data-edgeever-extension-theme] .edgeever-memo-divider {
+  border-bottom-color: var(--edgeever-theme-border, var(--workspace-memo-divider)) !important;
 }
 
 @media (min-width: 1024px) {
@@ -456,11 +470,6 @@ html[data-edgeever-extension-theme] .edgeever-workspace-selection {
  * choice, while bundled themes contribute typography and semantic colors. */
 :root.dark .edgeever-editor[data-editor-theme]:not([data-editor-theme="default"]):not([data-editor-theme="custom"]) {
   --editor-theme-bg: var(--workspace-editor);
-}
-
-/* Repeated memo rows need less separation than the three workspace panes. */
-:root.dark .edgeever-workspace-memo-list article {
-  border-color: color-mix(in srgb, var(--workspace-divider) 58%, transparent) !important;
 }
 
 :root.dark .ProseMirror {

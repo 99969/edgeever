@@ -40,10 +40,16 @@ describe("dark theme contracts", () => {
 
   test("public shares and divided surfaces have explicit dark rules", () => {
     const css = readFileSync(new URL("../styles/globals.css", import.meta.url), "utf8");
+    const memoCard = readFileSync(new URL("../components/MemoCard.tsx", import.meta.url), "utf8");
     expect(css).toContain(":root.dark .edgeever-public-share .ProseMirror");
     expect(css).toContain("color: #f8fafc;");
     expect(css).toContain('[class~="divide-slate-100"]');
     expect(css).toContain('[class~="text-emerald-700"]');
+    expect(css).toContain("--workspace-memo-divider: #3b4540;");
+    expect(css).toContain(":root.dark .edgeever-workspace-memo-list .edgeever-memo-divider");
+    expect(memoCard).toContain("edgeever-memo-divider");
+    expect(memoCard).not.toContain("dark:lg:border-slate-300");
+    expect(memoCard).not.toContain("dark:lg:border-slate-300/70");
   });
 
   test("workspace dark surfaces stay neutral and bundled editor themes blend into the canvas", () => {
