@@ -26,6 +26,7 @@ import {
   Printer,
   Image as ImageIcon,
   Share2,
+  Search,
   Copy,
   Lock,
   LockOpen,
@@ -38,8 +39,8 @@ import { MemoEditorFocusModeButton, MemoEditorTopRowLeading, MemoEditorUpdatedLa
 import { MemoEditorToolbarDivider } from "@/components/MemoEditorToolbarChrome";
 import {
   MEMO_EDITOR_READING_GUTTER_CLASS_NAME,
-  MEMO_EDITOR_TITLE_REGION_CLASS_NAME,
   MEMO_EDITOR_TOP_ROW_CLASS_NAME,
+  nextTitleStatusClearance,
 } from "@/components/MemoEditorChromeDensity";
 import { MemoTitleInput } from "@/components/MemoTitleInput";
 import { Input } from "@/components/ui/input";
@@ -525,6 +526,9 @@ const RichEditorPane = ({
   });
   const [editorScrollContainer, setEditorScrollContainer] = useState<HTMLDivElement | null>(null);
   const [editorScrollbarGutter, setEditorScrollbarGutter] = useState(0);
+  const [headerTitleSlot, setHeaderTitleSlot] = useState<HTMLDivElement | null>(null);
+  const [headerStatusCluster, setHeaderStatusCluster] = useState<HTMLDivElement | null>(null);
+  const [titleStatusClearancePx, setTitleStatusClearancePx] = useState(0);
   useLayoutEffect(() => {
     const element = editorScrollContainer;
     if (!element) return;
@@ -3306,6 +3310,32 @@ const RichEditorPane = ({
     title,
   });
 
+  useLayoutEffect(() => {
+    const title = headerTitleSlot;
+    const status = headerStatusCluster;
+    if (!title || !status) return;
+    let frame = 0;
+    const measure = () => {
+      const titleRect = title.getBoundingClientRect();
+      const statusRect = status.getBoundingClientRect();
+      if (titleRect.width < 1 || statusRect.width < 1) return;
+      const paddingRight = Number.parseFloat(getComputedStyle(title).paddingRight) || 0;
+      const inputRight = titleRect.right - paddingRight;
+      setTitleStatusClearancePx((current) => nextTitleStatusClearance(current, inputRight, statusRect.left));
+    };
+    measure();
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    });
+    observer.observe(title);
+    observer.observe(status);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [characterCount, hasUnsavedChanges, headerStatusCluster, headerTitleSlot, saveState]);
+
   if (isSelectionMode) {
     return (
       <div className="flex h-full min-w-0 flex-col bg-card">
@@ -3590,14 +3620,20 @@ const RichEditorPane = ({
           <div
             className={cn(
               "min-w-0 w-full",
-              editorColumnMatchesArticle ? MEMO_EDITOR_READING_GUTTER_CLASS_NAME : "px-3 sm:px-4",
-              "pr-36 sm:!pr-44",
               (desktopFocusMode || editorColumnStyle) && "mx-auto",
               desktopFocusMode && "max-w-[960px]",
             )}
-            style={editorColumnStyle}
+            style={{
+              ...editorColumnStyle,
+              ...(titleStatusClearancePx > 0 ? { paddingRight: titleStatusClearancePx } : {}),
+            }}
+          >
+          <div
+            ref={setHeaderTitleSlot}
+            className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 px-4 sm:flex-nowrap"
           >
           <MemoEditorTopRowLeading
+            className="min-w-0 flex-1"
             mobileBackButton={(
               <Button
                 className="lg:hidden"
@@ -3613,7 +3649,7 @@ const RichEditorPane = ({
             )}
             titleInput={(
               <MemoTitleInput
-                className="px-0"
+                className="w-full min-w-0 px-2"
                 value={title}
                 readOnly={effectiveReadOnly}
                 onValueChange={(nextTitle) => {
@@ -3625,15 +3661,59 @@ const RichEditorPane = ({
               />
             )}
           />
+          <MemoEditorMetadataRow
+            rowClassName="shrink-0 flex-nowrap"
+            contentMarkdown={currentMarkdownForAi}
+            disabled={effectiveReadOnly}
+            mobileNotebookPickerOpen={mobileNotebookSheetOpen}
+            notebookOptions={notebookOptions}
+            notebookUpdatePending={notebookUpdatePending || saveMutation.isPending}
+            repository={repository}
+            selectedNotebookId={memo.notebookId}
+            tagsText={tagsText}
+            title={title}
+            onMobileNotebookPickerOpenChange={setMobileNotebookSheetOpen}
+            onNotebookChange={handleNotebookChange}
+            onTagsChange={(nextTagsText) => {
+              setTagsText(nextTagsText);
+              persistCurrentDraft(title, nextTagsText, getMobilePlainTextValue());
+              markDirty();
+            }}
+            trailingActions={(
+              <>
+                {!readOnly && (
+                  <IconTooltip label={`${t(desktopReadingProtection ? "editor.disableReadingProtection" : "editor.enableReadingProtection")} (${formatShortcutBinding(shortcutSettings.toggleReadingProtection)})`}>
+                    <Button
+                      className={cn(
+                        "hidden h-7 w-7 shrink-0 sm:inline-flex",
+                        desktopReadingProtection && "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-200 hover:text-slate-900"
+                      )}
+                      size="icon"
+                      variant={desktopReadingProtection ? "soft" : "ghost"}
+                      aria-label={`${t(desktopReadingProtection ? "editor.disableReadingProtection" : "editor.enableReadingProtection")} (${formatShortcutBinding(shortcutSettings.toggleReadingProtection)})`}
+                      aria-pressed={desktopReadingProtection}
+                      onClick={toggleDesktopReadingProtection}
+                    >
+                      {desktopReadingProtection ? <Lock className="h-3.5 w-3.5" /> : <LockOpen className="h-3.5 w-3.5" />}
+                    </Button>
+                  </IconTooltip>
+                )}
+              </>
+            )}
+          />
+          </div>
           </div>
           {editorColumnMatchesArticle && editorContentAlignment === "center" && !desktopFocusMode && !editorOutlineCollapsed ? (
             <div aria-hidden="true" className="hidden shrink-0 lg:block" style={{ width: `calc(${EDITOR_OUTLINE_WIDTH} + 2rem)` }} />
           ) : null}
           </div>
 
-          <div className="absolute right-1 top-0 flex h-full shrink-0 items-center gap-1 sm:right-2">
+          <div ref={setHeaderStatusCluster} className="absolute right-1 top-0 flex h-full shrink-0 items-center gap-1 sm:right-2">
             <div className="flex min-w-0 items-center gap-1.5">
               <MemoEditorUpdatedLabel updatedLabel={updatedLabel} />
+              <span className="hidden shrink-0 whitespace-nowrap text-xs tabular-nums text-slate-400 sm:inline">
+                {t("editor.characterCount", { count: characterCount })}
+              </span>
             {imageUploadState !== "idle" && (
               <span
                 className={cn(
@@ -3692,33 +3772,33 @@ const RichEditorPane = ({
               desktopFocusMode={desktopFocusMode}
               onToggleDesktopFocusMode={onToggleDesktopFocusMode}
             />
-            {isMemoShared && !readOnly && (
+            {!readOnly && (!mobileEditingActive || isMemoShared) && (
+              <IconTooltip label={t(isLocalMemoId(memo.id) ? "sharing.afterSync" : isMemoShared ? "sharing.manage" : "sharing.action")}>
+                <Button
+                  className={cn("h-8 w-8", isMemoShared ? "text-slate-700" : "text-slate-500")}
+                  size="icon"
+                  variant="ghost"
+                  type="button"
+                  aria-label={t(isLocalMemoId(memo.id) ? "sharing.afterSync" : isMemoShared ? "sharing.manage" : "sharing.action")}
+                  disabled={isLocalMemoId(memo.id)}
+                  onClick={() => setShareOpen(true)}
+                >
+                  <Share2 className="h-4 w-4" aria-hidden="true" />
+                </Button>
+              </IconTooltip>
+            )}
+            <IconTooltip label={t("editor.searchCurrentMemo")}>
               <Button
-                className="h-8 w-8 text-slate-700"
+                className="hidden h-8 w-8 text-slate-500 sm:inline-flex"
                 size="icon"
                 variant="ghost"
                 type="button"
-                title={t("sharing.manage")}
-                aria-label={t("sharing.manage")}
-                onClick={() => setShareOpen(true)}
+                aria-label={t("editor.searchCurrentMemo")}
+                onClick={() => openNoteSearch()}
               >
-                <Share2 className="h-4 w-4" aria-hidden="true" />
+                <Search className="h-4 w-4" aria-hidden="true" />
               </Button>
-            )}
-            {!readOnly && !isMemoShared && !mobileEditingActive && (
-              <Button
-                className="h-8 w-8 text-slate-500 sm:hidden"
-                size="icon"
-                variant="ghost"
-                type="button"
-                title={t(isLocalMemoId(memo.id) ? "sharing.afterSync" : "sharing.action")}
-                aria-label={t(isLocalMemoId(memo.id) ? "sharing.afterSync" : "sharing.action")}
-                disabled={isLocalMemoId(memo.id)}
-                onClick={() => setShareOpen(true)}
-              >
-                <Share2 className="h-4 w-4" aria-hidden="true" />
-              </Button>
-            )}
+            </IconTooltip>
             {mobileEditingActive && !readOnly && (
               <button
                 className="inline-flex h-8 items-center justify-center rounded-full bg-slate-950 px-3 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-500 sm:hidden"
@@ -3936,55 +4016,6 @@ const RichEditorPane = ({
           </div>
         </div>
 
-        <div
-          className={cn(desktopFocusMode && "mx-auto w-full max-w-[1400px]", editorColumnMatchesArticle && editorContentAlignment === "center" && "flex justify-center")}
-          style={editorColumnMatchesArticle ? { paddingLeft: editorScrollbarGutter, paddingRight: editorScrollbarGutter } : undefined}
-        >
-          <div className={cn(MEMO_EDITOR_TITLE_REGION_CLASS_NAME, useMarkdownSourceEditor && "lg:px-4", "min-w-0 w-full", (desktopFocusMode || editorColumnStyle) && "mx-auto", desktopFocusMode && "max-w-[960px]")} style={editorColumnStyle}>
-          <MemoEditorMetadataRow
-            contentMarkdown={currentMarkdownForAi}
-            disabled={effectiveReadOnly}
-            mobileNotebookPickerOpen={mobileNotebookSheetOpen}
-            notebookOptions={notebookOptions}
-            notebookUpdatePending={notebookUpdatePending || saveMutation.isPending}
-            repository={repository}
-            selectedNotebookId={memo.notebookId}
-            tagsText={tagsText}
-            title={title}
-            onMobileNotebookPickerOpenChange={setMobileNotebookSheetOpen}
-            onNotebookChange={handleNotebookChange}
-            onTagsChange={(nextTagsText) => {
-              setTagsText(nextTagsText);
-              persistCurrentDraft(title, nextTagsText, getMobilePlainTextValue());
-              markDirty();
-            }}
-            trailingActions={(
-              <>
-                {!readOnly && (
-                  <IconTooltip label={`${t(desktopReadingProtection ? "editor.disableReadingProtection" : "editor.enableReadingProtection")} (${formatShortcutBinding(shortcutSettings.toggleReadingProtection)})`}>
-                    <Button
-                      className={cn(
-                        "hidden h-7 w-7 shrink-0 sm:inline-flex",
-                        desktopReadingProtection && "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-200 hover:text-slate-900"
-                      )}
-                      size="icon"
-                      variant={desktopReadingProtection ? "soft" : "ghost"}
-                      aria-label={`${t(desktopReadingProtection ? "editor.disableReadingProtection" : "editor.enableReadingProtection")} (${formatShortcutBinding(shortcutSettings.toggleReadingProtection)})`}
-                      aria-pressed={desktopReadingProtection}
-                      onClick={toggleDesktopReadingProtection}
-                    >
-                      {desktopReadingProtection ? <Lock className="h-3.5 w-3.5" /> : <LockOpen className="h-3.5 w-3.5" />}
-                    </Button>
-                  </IconTooltip>
-                )}
-              </>
-            )}
-          />
-          </div>
-          {editorColumnMatchesArticle && editorContentAlignment === "center" && !desktopFocusMode && !editorOutlineCollapsed ? (
-            <div aria-hidden="true" className="hidden shrink-0 lg:block" style={{ width: `calc(${EDITOR_OUTLINE_WIDTH} + 2rem)` }} />
-          ) : null}
-        </div>
         {noteSearchOpen ? (
           <EditorNoteSearchBar
             inputRef={noteSearchInputRef}

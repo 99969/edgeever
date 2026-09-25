@@ -12,3 +12,14 @@ export const MEMO_EDITOR_TOOLBAR_COLLAPSED_CLASS_NAME =
 
 export const MEMO_EDITOR_TITLE_REGION_CLASS_NAME =
   `space-y-1 pb-2 pt-1 sm:pb-2 sm:pt-1 ${MEMO_EDITOR_READING_GUTTER_CLASS_NAME}`;
+
+/** Extra right inset so the title field stops before the header status cluster. */
+export const nextTitleStatusClearance = (
+  current: number,
+  inputRight: number,
+  statusLeft: number,
+  gap = 8,
+) => {
+  const next = Math.min(480, Math.max(0, Math.ceil(current + inputRight - (statusLeft - gap))));
+  return Math.abs(next - current) <= 1 ? current : next;
+};
