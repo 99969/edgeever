@@ -337,7 +337,7 @@ export const MemoCard = ({
         isLast && "lg:border-b-transparent",
         listDensity === "compact" ? "rounded-md shadow-none" : "rounded-lg shadow-[0_4px_16px_rgba(15,23,42,0.045)] lg:shadow-none",
         !selectionMode && selected
-          ? "lg:border-[var(--workspace-divider)] lg:bg-[var(--workspace-editor)] lg:shadow-[0_1px_2px_rgba(15,23,32,0.06)]"
+          ? "edgeever-workspace-selection border-[var(--workspace-divider)] bg-workspace-selection lg:border-[var(--workspace-divider)] lg:bg-workspace-selection"
           : checked
             ? "bg-slate-50 ring-1 ring-slate-200 lg:border-[var(--workspace-divider)] lg:bg-[var(--workspace-selection)] lg:ring-0"
             : "active:bg-slate-50 lg:hover:bg-white/70"

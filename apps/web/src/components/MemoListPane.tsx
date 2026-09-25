@@ -1452,7 +1452,7 @@ export const MemoListPane = ({
             )}
           </div>
         ) : (
-          <div className="lg:overflow-hidden lg:rounded-sm lg:border-y lg:border-slate-200 lg:bg-card">
+          <div className="lg:overflow-hidden">
             <div className="relative w-full" style={{ height: `${memoListVirtualizer.getTotalSize()}px` }}>
               {memoListVirtualizer.getVirtualItems().map((virtualRow) => {
                 const memo = memos[virtualRow.index];
