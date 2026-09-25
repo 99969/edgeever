@@ -525,6 +525,7 @@ export const MemoListPane = ({
   const selectedMemosInList = useMemo(() => memos.filter((memo) => selectedMemoIds.has(memo.id)), [memos, selectedMemoIds]);
 
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const [searchFocused, setSearchFocused] = useState(false);
   const mobileSearchInputRef = useRef<HTMLInputElement | null>(null);
   const listRootRef = useRef<HTMLDivElement | null>(null);
   const listScrollRef = useRef<HTMLDivElement | null>(null);
@@ -1079,10 +1080,11 @@ export const MemoListPane = ({
             </button>
             <div
               className={cn(
-                "flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full border border-transparent px-3 text-sm transition",
+                "flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full border px-3 text-sm text-slate-500 transition-colors",
                 searchActive
-                  ? "bg-slate-200/90 text-slate-800"
-                  : "bg-slate-100/80 text-slate-500"
+                  ? "bg-[color-mix(in_srgb,var(--workspace-sidebar)_78%,var(--workspace-memo-list))] text-slate-700"
+                  : "bg-[color-mix(in_srgb,var(--workspace-sidebar)_62%,var(--workspace-memo-list))]",
+                searchFocused || searchActive ? "border-[var(--workspace-divider)]" : "border-transparent",
               )}
             >
               <Search className="h-4 w-4 shrink-0" />
@@ -1097,6 +1099,8 @@ export const MemoListPane = ({
                 enterKeyHint="search"
                 spellCheck={false}
                 onChange={(event) => handleSearchChange(event.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
                 onKeyDown={(event) => {
                   if (event.key !== "Escape") {
                     return;
@@ -1203,10 +1207,11 @@ export const MemoListPane = ({
         <div className={cn("items-center gap-2", mobileSearchActive ? "hidden lg:flex" : "flex")}>
           <div
             className={cn(
-              "flex h-mobile-control min-w-0 flex-1 items-center gap-2 rounded-full border border-transparent px-3 text-sm transition-all duration-200 focus-within:ring-2 lg:rounded-md",
+              "flex h-mobile-control min-w-0 flex-1 items-center gap-2 rounded-full border px-3 text-sm text-slate-500 transition-colors lg:rounded-md",
               searchActive
-                ? "bg-slate-200/90 text-slate-800 focus-within:ring-slate-300"
-                : "bg-slate-100/80 text-slate-500 hover:bg-slate-100 focus-within:bg-card focus-within:ring-slate-200"
+                ? "bg-[color-mix(in_srgb,var(--workspace-sidebar)_78%,var(--workspace-memo-list))] text-slate-700"
+                : "bg-[color-mix(in_srgb,var(--workspace-sidebar)_62%,var(--workspace-memo-list))] hover:bg-[color-mix(in_srgb,var(--workspace-sidebar)_72%,var(--workspace-memo-list))]",
+              searchFocused || searchActive ? "border-[var(--workspace-divider)]" : "border-transparent"
             )}
           >
             <Search className="h-4 w-4 shrink-0" />
@@ -1221,6 +1226,8 @@ export const MemoListPane = ({
               enterKeyHint="search"
               spellCheck={false}
               onChange={(event) => handleSearchChange(event.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
               onKeyDown={(event) => {
                 if (event.key === "Escape" && search) {
                   event.preventDefault();
