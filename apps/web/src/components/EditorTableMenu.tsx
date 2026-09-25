@@ -58,7 +58,7 @@ export const EditorTableMenu = ({ editor, readOnly }: EditorTableMenuProps) => {
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent>{t("editorToolbar.table")}</TooltipContent>
+        <TooltipContent side="bottom">{t("editorToolbar.table")}</TooltipContent>
       </Tooltip>
       <DropdownMenuContent align="start">
         <DropdownMenuItem
