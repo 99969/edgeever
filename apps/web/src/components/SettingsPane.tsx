@@ -386,7 +386,7 @@ export const SettingsPane = ({
                         </div>
                         <span className="text-xs font-normal leading-5 text-slate-800">{item.label}</span>
                         {item.badge ? (
-                          <span className="rounded-full border border-emerald-200/80 bg-emerald-50 px-1.5 py-0.5 text-xs font-semibold text-emerald-700">
+                          <span className="rounded-full border border-emerald-200/80 bg-emerald-50 px-1.5 text-xs font-normal leading-5 text-emerald-700">
                             {item.badge}
                           </span>
                         ) : null}

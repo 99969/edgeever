@@ -29,7 +29,7 @@ export const EvernoteImportGuidePane = ({ onClose, onOpenExecutionCenter }: { on
           </Button>
           <div className="min-w-0">
             <h1 className={`flex items-center gap-2 ${WORKSPACE_PAGE_TITLE_CLASSNAME}`}>
-              <HelpCircle className="h-4 w-4 text-emerald-700" />
+              <HelpCircle className="h-4 w-4 text-slate-900" />
               {t("evernoteGuide.title")}
             </h1>
             <p className="mt-0.5 truncate text-xs font-medium text-slate-400">

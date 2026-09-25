@@ -60,7 +60,7 @@ export const ExecutionCenterPane = ({
           </Button>
           <div className="min-w-0">
             <h1 className={`flex items-center gap-2 text-slate-900 ${WORKSPACE_PAGE_TITLE_CLASSNAME}`}>
-              <ScrollText className="h-4.5 w-4.5 shrink-0 text-emerald-700" />
+              <ScrollText className="h-4 w-4 shrink-0 text-slate-900" />
               <span className="truncate">{t("executionHistory.centerTitle")}</span>
             </h1>
             <p className="mt-0.5 hidden truncate text-xs text-slate-500 sm:block">

@@ -46,7 +46,7 @@ export const PluginMarketplacePane = ({
             <ChevronLeft className="h-5 w-5 text-slate-500" />
           </Button>
           <h1 className={`flex min-w-0 items-center gap-2 ${WORKSPACE_PAGE_TITLE_CLASSNAME}`}>
-            <Store className="h-4 w-4 shrink-0 text-emerald-700" />
+            <Store className="h-4 w-4 shrink-0 text-slate-900" />
             <span className="truncate text-slate-900">{t("plugins.marketplace.title")}</span>
           </h1>
         </div>
