@@ -2133,7 +2133,6 @@ export const enUS = {
     deleteTable: "Delete table",
     markdown: "Switch to Markdown source",
     richText: "Switch to rich text",
-    reading: "Reading",
     viewMode: "Note view",
     appearance: "Appearance and style",
     blockStyle: "Paragraph style",

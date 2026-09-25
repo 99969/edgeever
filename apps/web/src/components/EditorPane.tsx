@@ -2917,9 +2917,8 @@ const RichEditorPane = ({
     if (handledReadingProtectionToggleTokenRef.current === readingProtectionToggleToken) return;
     handledReadingProtectionToggleTokenRef.current = readingProtectionToggleToken;
     if (editorShortcutBlocked || isMobileViewport || readOnly || !memoRef.current) return;
-    if (isMarkdownMode) handleMarkdownModeChange();
     toggleDesktopReadingProtection();
-  }, [editorShortcutBlocked, handleMarkdownModeChange, isMarkdownMode, isMobileViewport, readOnly, readingProtectionToggleToken, toggleDesktopReadingProtection]);
+  }, [editorShortcutBlocked, isMobileViewport, readOnly, readingProtectionToggleToken, toggleDesktopReadingProtection]);
 
   useEffect(() => {
     if (handledEditorModeToggleTokenRef.current === editorModeToggleToken) {
@@ -2938,21 +2937,8 @@ const RichEditorPane = ({
     handleMarkdownModeChange();
   }, [desktopReadingProtection, editorModeToggleToken, editorShortcutBlocked, handleMarkdownModeChange, useMobilePlainTextEditor]);
 
-  const editorView = !isMobileViewport && desktopReadingProtection
-    ? "reading"
-    : useMarkdownSourceEditor
-      ? "markdown"
-      : "rich";
-  const selectEditorView = useCallback((view: "rich" | "markdown" | "reading") => {
-    if (view === "reading") {
-      if (isMarkdownMode) handleMarkdownModeChange();
-      if (!desktopReadingProtection) {
-        setDesktopReadingProtection(true);
-        writeDesktopReadingProtectionPreference(true);
-      }
-      return;
-    }
-
+  const editorView = useMarkdownSourceEditor ? "markdown" : "rich";
+  const selectEditorView = useCallback((view: "rich" | "markdown") => {
     if (desktopReadingProtection) {
       setDesktopReadingProtection(false);
       writeDesktopReadingProtectionPreference(false);

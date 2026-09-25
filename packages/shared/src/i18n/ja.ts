@@ -2133,7 +2133,6 @@ export const ja = {
     deleteTable: "表を削除",
     markdown: "Markdown ソースに切り替え",
     richText: "リッチテキストに切り替え",
-    reading: "閲覧",
     viewMode: "ノートの表示",
     appearance: "外観とスタイル",
     blockStyle: "段落スタイル",

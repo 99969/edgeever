@@ -2131,7 +2131,6 @@ export const zhCN = {
     deleteTable: "删除表格",
     markdown: "切换到 Markdown 源码",
     richText: "切换到富文本编辑",
-    reading: "阅读",
     viewMode: "笔记视图",
     appearance: "外观与样式",
     blockStyle: "段落样式",

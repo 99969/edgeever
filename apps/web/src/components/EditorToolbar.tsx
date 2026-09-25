@@ -21,7 +21,6 @@ import {
   Sigma,
   ChevronDown,
   ChevronUp,
-  BookOpen,
   FileCode2,
   Palette,
   Type,
@@ -160,12 +159,11 @@ const toggleListAtSelection = (editor: Editor, listType: "bulletList" | "ordered
   }
 };
 
-export type EditorViewMode = "rich" | "markdown" | "reading";
+export type EditorViewMode = "rich" | "markdown";
 
 const EDITOR_VIEW_MODES = [
   { value: "rich", labelKey: "editorToolbar.richText", icon: Type },
   { value: "markdown", labelKey: "editorToolbar.markdown", icon: FileCode2 },
-  { value: "reading", labelKey: "editorToolbar.reading", icon: BookOpen },
 ] as const satisfies ReadonlyArray<{ value: EditorViewMode; labelKey: string; icon: typeof Type }>;
 
 export const EditorToolbar = ({
@@ -188,7 +186,7 @@ export const EditorToolbar = ({
   markdownMode?: boolean;
   editorView?: EditorViewMode;
   onEditorViewChange?: (view: EditorViewMode) => void;
-  /** Trash and other hard locks. Reading mode must not disable the view switch. */
+  /** Trash and other hard locks. Reading protection must not disable the view switch. */
   viewSwitchDisabled?: boolean;
   onMarkdownModeChange?: () => void;
   markdownModeShortcut?: ShortcutBinding;
