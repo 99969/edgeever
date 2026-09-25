@@ -398,7 +398,7 @@ export const PluginManagerCard = ({
       <CardHeader className="p-4 sm:p-5">
         <div className="flex items-center justify-between gap-3">
           <CardTitle className="flex min-w-0 items-center gap-2 text-sm">
-            <Puzzle className="h-4 w-4 shrink-0 text-emerald-700" />
+            <Puzzle className="h-4 w-4 shrink-0 text-slate-900" />
             {selectedPluginId ? t("plugins.details.title") : t("plugins.title")}
             <span className="inline-flex items-center rounded-full border border-emerald-200/80 bg-emerald-50 px-2 py-0.5 text-xs font-semibold tracking-wide text-emerald-700">
               Beta
