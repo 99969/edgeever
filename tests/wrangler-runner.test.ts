@@ -12,6 +12,7 @@ import {
   normalizeD1MigrationSql,
   productionVersionIds,
   LOCAL_DEV_CREDENTIALS_ENCRYPTION_KEY,
+  resolveWranglerAssetsDirectory,
   resolveWranglerCliPath,
   resolveWranglerRuntimeExecutable,
   runWranglerSync,
@@ -71,6 +72,13 @@ describe("cross-platform Wrangler runner", () => {
     );
     expect(envFile).not.toContain("EDGE_EVER_AUTH_PASSWORD=");
     expect(envFile).not.toContain("EDGE_EVER_AUTH_PASSWORD_HASH=");
+  });
+
+  test("resolves the configured assets directory so local dev can create it", () => {
+    const config = '[vars]\ndirectory = "wrong"\n\n[assets]\ndirectory = "public"\n';
+
+    expect(resolveWranglerAssetsDirectory(config, "/repo")).toBe(resolve("/repo", "public"));
+    expect(resolveWranglerAssetsDirectory('name = "x"\n', "/repo")).toBeNull();
   });
 
   test("resolves an exact D1 database name from Wrangler JSON", () => {
