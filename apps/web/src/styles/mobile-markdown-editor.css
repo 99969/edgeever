@@ -587,7 +587,7 @@ html.dark .edgeever-mobile-tiptap-content a:hover {
   height: 18px;
   margin: 0;
   border-radius: 3px;
-  accent-color: #16a06e;
+  accent-color: #1a1d21;
 }
 
 .edgeever-mobile-tiptap-content ul[data-type="taskList"] li[data-checked] > div {
@@ -641,14 +641,14 @@ html.dark .edgeever-mobile-tiptap-content a:hover {
 
 .edgeever-mobile-tiptap-content hr {
   border: 0;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--memo-content-divider-color, #1a1d21);
   margin: 1.2rem 0;
 }
 
 .edgeever-mobile-tiptap-content hr.edgeever-merge-divider,
 .edgeever-mobile-tiptap-content hr[data-edgeever-merge-divider] {
   border: 0;
-  border-top: 2px solid var(--memo-content-divider-color, #66ca80);
+  border-top: 2px solid var(--memo-content-divider-color, #1a1d21);
   background: transparent;
   height: 0;
   margin: 1.5rem 0;
