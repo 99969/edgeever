@@ -114,7 +114,7 @@ import { api } from "@/lib/api";
 import { isDesktopResourceRuntime, stageDesktopResource, toDesktopResourceDownloadUrl, toDesktopResourceUrl } from "@/lib/desktop-resources";
 import { contentReferencesStagedResourceUrl, findMatchingMemoResource, repairMemoStagedResourceUrls, repairTiptapStagedResourceUrls } from "@/lib/staged-resource-repair";
 import { cn, formatDateTime, parseTagsText } from "@/lib/utils";
-import { EDITOR_CONTENT_MAX_WIDTH, EDITOR_CONTENT_MAX_WIDTH_COLLAPSED, EDITOR_OUTLINE_WIDTH } from "@/lib/workspace-ui";
+import { EDITOR_CONTENT_MAX_WIDTH, EDITOR_CONTENT_MAX_WIDTH_COLLAPSED } from "@/lib/workspace-ui";
 import {
   countMemoCharacters,
   createEdgeEverDocumentExtensions,
@@ -3615,18 +3615,14 @@ const RichEditorPane = ({
               desktopFocusMode && "mx-auto w-full max-w-[1400px]",
               editorColumnMatchesArticle && editorContentAlignment === "center" && "justify-center",
             )}
-            style={editorColumnMatchesArticle ? { paddingLeft: editorScrollbarGutter, paddingRight: editorScrollbarGutter } : undefined}
+            style={editorColumnMatchesArticle && editorScrollbarGutter > 0 ? { paddingRight: editorScrollbarGutter } : undefined}
           >
           <div
             className={cn(
               "min-w-0 w-full",
-              (desktopFocusMode || editorColumnStyle) && "mx-auto",
-              desktopFocusMode && "max-w-[960px]",
+              desktopFocusMode && "mx-auto max-w-[960px]",
             )}
-            style={{
-              ...editorColumnStyle,
-              ...(titleStatusClearancePx > 0 ? { paddingRight: titleStatusClearancePx } : {}),
-            }}
+            style={titleStatusClearancePx > 0 ? { paddingRight: titleStatusClearancePx } : undefined}
           >
           <div
             ref={setHeaderTitleSlot}
@@ -3703,9 +3699,6 @@ const RichEditorPane = ({
           />
           </div>
           </div>
-          {editorColumnMatchesArticle && editorContentAlignment === "center" && !desktopFocusMode && !editorOutlineCollapsed ? (
-            <div aria-hidden="true" className="hidden shrink-0 lg:block" style={{ width: `calc(${EDITOR_OUTLINE_WIDTH} + 2rem)` }} />
-          ) : null}
           </div>
 
           <div ref={setHeaderStatusCluster} className="absolute right-1 top-0 flex h-full shrink-0 items-center gap-1 sm:right-2">
