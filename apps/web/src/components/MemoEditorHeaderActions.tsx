@@ -68,14 +68,14 @@ export const MemoEditorHeaderActions = ({
         >
           {textNoteMenuItems}
           <DropdownMenuItem
-            className="flex h-9 w-full items-center gap-2 px-3 text-left text-sm text-slate-700 hover:bg-slate-50 cursor-pointer outline-none"
+            className="flex h-9 w-full items-center gap-2 px-3 text-left text-xs text-slate-700 hover:bg-slate-50 cursor-pointer outline-none"
             onClick={onSearch}
           >
             <Search className="h-4 w-4 text-slate-500" />
             {t("editor.searchCurrentMemo")}
           </DropdownMenuItem>
           <DropdownMenuItem
-            className="flex h-9 w-full items-center gap-2 px-3 text-left text-sm text-slate-700 hover:bg-slate-50 cursor-pointer outline-none"
+            className="flex h-9 w-full items-center gap-2 px-3 text-left text-xs text-slate-700 hover:bg-slate-50 cursor-pointer outline-none"
             onClick={() => setPreference(nextTheme)}
           >
             {resolvedTheme === "dark" ? <SunMedium className="h-4 w-4 text-slate-500" /> : <MoonStar className="h-4 w-4 text-slate-500" />}
@@ -83,14 +83,14 @@ export const MemoEditorHeaderActions = ({
           </DropdownMenuItem>
           <GitHubRepositoryLink
             showTooltip={false}
-            className="flex h-9 w-full items-center gap-2 px-3 text-left text-sm text-slate-700 outline-none hover:bg-slate-50"
+            className="flex h-9 w-full items-center gap-2 px-3 text-left text-xs text-slate-700 outline-none hover:bg-slate-50"
             iconClassName="h-4 w-4 text-slate-500"
           >
             {t("common.githubRepository")}
           </GitHubRepositoryLink>
           {moreMenuItems}
           <DropdownMenuItem
-            className="flex h-9 w-full items-center gap-2 px-3 text-left text-sm text-slate-700 hover:bg-slate-50 cursor-pointer outline-none"
+            className="flex h-9 w-full items-center gap-2 px-3 text-left text-xs text-slate-700 hover:bg-slate-50 cursor-pointer outline-none"
             onClick={() => handleSystemInfoOpenChange(true)}
           >
             <span className="relative flex h-4 w-4 shrink-0 items-center justify-center">
