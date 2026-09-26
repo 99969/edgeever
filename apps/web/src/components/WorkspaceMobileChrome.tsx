@@ -11,6 +11,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
+import { BETA_BADGE_CLASSNAME } from "@/lib/workspace-ui";
 import type { NoteCreateKind, Notebook } from "@edgeever/shared";
 import type { MobileBottomNavItem, NotebookNode } from "@/lib/app-helpers";
 import {
@@ -111,9 +112,7 @@ export const MobileBottomNav = ({
             <DropdownMenuItem className="gap-2 text-xs leading-5" onSelect={() => onCreateMemo("table")}>
               <TableProperties className="h-4 w-4 shrink-0" />
               <span className="min-w-0 flex-1 truncate">{t("structuredTable.name")}</span>
-              <span className="inline-flex shrink-0 items-center rounded-full border border-slate-200 bg-slate-100 px-1.5 text-xs font-normal leading-5 text-slate-600">
-                Beta
-              </span>
+              <span className={BETA_BADGE_CLASSNAME}>Beta</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

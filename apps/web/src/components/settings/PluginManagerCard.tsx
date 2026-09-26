@@ -19,6 +19,7 @@ import type { MarketplaceEntry } from "@edgeever/plugin-api";
 import { getPluginDetailPage, getPluginDetailPath, hasPluginSettings, isPluginCardCommand, type PluginDetailPage } from "@/lib/plugins/plugin-navigation";
 import type { ScheduledTask } from "@edgeever/shared";
 import { api, getOrCreateClientDeviceId } from "@/lib/api";
+import { BETA_BADGE_CLASSNAME } from "@/lib/workspace-ui";
 import { ScheduledTaskRunHistoryDialog } from "@/components/execution/ScheduledTaskRunHistoryDialog";
 import { AppConfirmDialog } from "@/components/dialogs/ConfirmDialogs";
 import {
@@ -400,9 +401,7 @@ export const PluginManagerCard = ({
           <CardTitle className="flex min-w-0 items-center gap-2 text-sm">
             <Puzzle className="h-4 w-4 shrink-0 text-slate-900" />
             {selectedPluginId ? t("plugins.details.title") : t("plugins.title")}
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-1.5 text-xs font-normal leading-5 text-slate-600">
-              Beta
-            </span>
+            <span className={BETA_BADGE_CLASSNAME}>Beta</span>
           </CardTitle>
           <div className="flex shrink-0 items-center gap-1">
             {snapshot.extensions.length > 0 || (marketplaceQuery.data?.entries.length ?? 0) > 0 ? (

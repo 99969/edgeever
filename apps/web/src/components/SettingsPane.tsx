@@ -18,7 +18,7 @@ import { SystemInfoDialog } from "@/components/SystemInfoDialog";
 import { Button } from "@/components/ui/button";
 
 import type { EditorContentAlignment, ShortcutSettings } from "@/lib/app-helpers";
-import { WORKSPACE_PAGE_TITLE_CLASSNAME } from "@/lib/workspace-ui";
+import { BETA_BADGE_CLASSNAME, WORKSPACE_PAGE_TITLE_CLASSNAME } from "@/lib/workspace-ui";
 import { cn } from "@/lib/utils";
 import { AccountInfoCard } from "./settings/AccountInfoCard";
 import { DataExportCard } from "./settings/DataExportCard";
@@ -350,9 +350,7 @@ export const SettingsPane = ({
                         </div>
                         <span className="text-xs font-normal leading-5 text-slate-800">{item.label}</span>
                         {item.badge ? (
-                          <span className="rounded-full border border-slate-200 bg-slate-100 px-1.5 text-xs font-normal leading-5 text-slate-600">
-                            {item.badge}
-                          </span>
+                          <span className={BETA_BADGE_CLASSNAME}>{item.badge}</span>
                         ) : null}
                       </div>
                       <ChevronRight className="h-4 w-4 text-slate-400" />
