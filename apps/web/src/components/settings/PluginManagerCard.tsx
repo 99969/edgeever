@@ -176,7 +176,7 @@ const PluginDetailView = ({
             <h2 className="text-sm font-semibold text-slate-950">{name}</h2>
             <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-slate-500">{manifest.type}</span>
             {update ? (
-              <span className="rounded-full bg-slate-950 px-2 py-0.5 text-xs font-medium text-slate-50">
+              <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs font-medium text-slate-800">
                 {t("plugins.updates.available", { version: update.latestVersion })}
               </span>
             ) : null}
@@ -423,7 +423,7 @@ export const PluginManagerCard = ({
                       : t("plugins.updates.found", { count: lastManualCheckCount })}
                 </span>
                 {lastManualCheckCount === null && (updateQuery.data?.updates.length ?? 0) > 0 ? (
-                  <span className="rounded-full bg-slate-950 px-1.5 py-0.5 text-xs font-semibold text-slate-50">
+                  <span className="rounded-full bg-slate-200 px-1.5 py-0.5 text-xs font-semibold text-slate-800">
                     {updateQuery.data?.updates.length}
                   </span>
                 ) : null}

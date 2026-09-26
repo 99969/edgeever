@@ -310,7 +310,7 @@ html.dark[data-edgeever-environment="demo"] body::after {
     --switch-thumb: #ffffff;
     --switch-track-on: #525252;
     --switch-thumb-on: #ffffff;
-    --checkbox-on: #1a1d21;
+    --checkbox-on: #525252;
     --checkbox-mark: #ffffff;
     --slate-50-rgb: 250 250 250;
     --slate-100-rgb: 245 245 245;

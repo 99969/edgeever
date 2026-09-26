@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check, LayoutList, Pencil, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { MemoTemplate } from "@edgeever/shared";
@@ -61,9 +61,6 @@ export const TemplatesDialog = ({
               <LayoutList className="h-4 w-4 text-slate-900" />
               {t("templates.title")}
             </DialogTitle>
-            <DialogDescription className="mt-1 text-xs text-slate-500">
-              {t("templates.description")}
-            </DialogDescription>
           </div>
         </DialogHeader>
 

@@ -26,6 +26,7 @@ describe("application color system", () => {
     expect(globals).toContain("--accent-foreground: 0 0% 7%;");
     expect(globals).not.toContain("--accent-foreground: 158 70% 25%;");
     expect(globals).toContain("--switch-track-on: #525252;");
+    expect(globals).toContain("--checkbox-on: #525252;");
     expect(globals).toContain("--switch-track-on: #e7ebe8;");
     expect(switchSource).toContain("data-[state=checked]:bg-[var(--switch-track-on)]");
     expect(switchSource).not.toContain("bg-emerald-500");

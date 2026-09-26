@@ -2390,7 +2390,6 @@ export const ja = {
   },
   templates: {
     title: "テンプレートセンター",
-    description: "ノートテンプレートを作成、編集、再利用します。",
     create: "新しいテンプレート",
     useTemplate: "テンプレートから新しいノート",
     useThisTemplate: "このテンプレートを使う",
@@ -2398,7 +2397,6 @@ export const ja = {
     previewTitle: "テンプレートプレビュー",
     createDescription: "ゼロから再利用できるテンプレートを作成します。",
     myTemplates: "テンプレート",
-    myTemplatesSubtitle: "すべてのテンプレートはこのワークスペースに属し、編集や削除ができます",
     savedDescription: "再利用できるノートテンプレートです。",
     emptyMyTemplates: "まだテンプレートがありません",
     emptyMyTemplatesHint: "上の「新しいテンプレート」をクリックするか、エディタで任意のノートをテンプレートとして保存できます。",

@@ -258,7 +258,7 @@ export const EditorTagPicker = ({ contentMarkdown, disabled, loadTags, title, va
                     onClick={() => toggleTag(tag.name)}
                     aria-pressed={selected}
                   >
-                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${selected ? "border-slate-950 bg-slate-950 text-slate-50" : "border-slate-300 bg-card text-transparent"}`}>
+                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${selected ? "border-[var(--checkbox-on)] bg-[var(--checkbox-on)] text-[var(--checkbox-mark)]" : "border-slate-300 bg-card text-transparent"}`}>
                       {selected && <Check className="h-3.5 w-3.5" />}
                     </span>
                     <span className="min-w-0 flex-1 truncate font-medium">#{tag.name}</span>

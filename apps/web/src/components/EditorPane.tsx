@@ -3795,7 +3795,7 @@ const RichEditorPane = ({
             </IconTooltip>
             {mobileEditingActive && !readOnly && (
               <button
-                className="inline-flex h-8 items-center justify-center rounded-full bg-slate-950 px-3 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-500 sm:hidden"
+                className="inline-flex h-8 items-center justify-center rounded-full bg-slate-700 px-3 text-xs font-semibold text-slate-50 transition hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-500 sm:hidden"
                 type="button"
                 disabled={mobileDoneDisabled}
                 onClick={handleMobileDone}
@@ -4171,7 +4171,7 @@ const RichEditorPane = ({
                 />
                 <div className="absolute right-3 top-3 flex gap-2">
                   <button
-                    className="rounded-full border border-slate-900 bg-slate-900 px-3 py-1.5 text-sm font-semibold text-slate-50 shadow-sm"
+                    className="rounded-full border border-slate-700 bg-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-50 shadow-sm"
                     type="button"
                     onClick={() => void handleMobileClipboardInput()}
                   >
