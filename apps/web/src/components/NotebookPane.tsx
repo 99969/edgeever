@@ -11,9 +11,11 @@ import {
   LayoutGrid,
   LayoutList,
   LayoutTemplate,
-  Presentation,
+  GitFork,
+  Component,
+  PieChart,
+  Table2,
   BookPlus,
-  Boxes,
   ArrowDownWideNarrow,
   Notebook as NotebookIcon,
   Tag,
@@ -30,8 +32,6 @@ import {
   ExternalLink,
   RotateCcw,
   FileText,
-  Network,
-  TableProperties,
   Workflow,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -313,7 +313,7 @@ const CreateMemoTypeItems = ({ onCreateMemo }: { onCreateMemo: (kind?: NoteCreat
         <span className="min-w-0 flex-1 truncate">{t("diagram.normalNote")}</span>
       </DropdownMenuItem>
       <DropdownMenuItem className="gap-2 text-xs leading-5" onSelect={() => onCreateMemo("mind-map")}>
-        <Network className="h-4 w-4 shrink-0" />
+        <GitFork className="h-4 w-4 shrink-0" />
         <span className="min-w-0 flex-1 truncate">{t("diagram.mindMap")}</span>
       </DropdownMenuItem>
       <DropdownMenuItem className="gap-2 text-xs leading-5" onSelect={() => onCreateMemo("flowchart")}>
@@ -321,16 +321,16 @@ const CreateMemoTypeItems = ({ onCreateMemo }: { onCreateMemo: (kind?: NoteCreat
         <span className="min-w-0 flex-1 truncate">{t("diagram.flowchart")}</span>
       </DropdownMenuItem>
       <DropdownMenuItem className="gap-2 text-xs leading-5" onSelect={() => onCreateMemo("architecture")}>
-        <Boxes className="h-4 w-4 shrink-0" />
+        <Component className="h-4 w-4 shrink-0" />
         <span className="min-w-0 flex-1 truncate">{t("diagram.architecture")}</span>
       </DropdownMenuItem>
       <DropdownMenuItem className="gap-2 text-xs leading-5" onSelect={() => onCreateMemo("infographic")}>
-        <Presentation className="h-4 w-4 shrink-0" />
+        <PieChart className="h-4 w-4 shrink-0" />
         <span className="min-w-0 flex-1 truncate">{t("infographic.name")}</span>
         <span className={BETA_BADGE_CLASSNAME}>Beta</span>
       </DropdownMenuItem>
       <DropdownMenuItem className="gap-2 text-xs leading-5" onSelect={() => onCreateMemo("table")}>
-        <TableProperties className="h-4 w-4 shrink-0" />
+        <Table2 className="h-4 w-4 shrink-0" />
         <span className="min-w-0 flex-1 truncate">{t("structuredTable.name")}</span>
         <span className={BETA_BADGE_CLASSNAME}>Beta</span>
       </DropdownMenuItem>

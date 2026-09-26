@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
-import { Check, ChevronLeft, Copy, Download, Form, Paperclip, Plus, RefreshCw, TableProperties, Trash2, X } from "lucide-react";
+import { Check, ChevronLeft, Copy, Download, Form, Paperclip, Plus, RefreshCw, Table2, Trash2, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   addTableField,
@@ -756,7 +756,7 @@ export const TableEditorPane = ({
           </TooltipTrigger>
           <TooltipContent>{t("structuredTable.back")}</TooltipContent>
         </Tooltip>
-        <TableProperties className="h-4 w-4 text-slate-900" aria-hidden="true" />
+        <Table2 className="h-4 w-4 text-slate-900" aria-hidden="true" />
         <div className="min-w-0 flex-1">
           <MemoTitleInput
             ariaLabel={t("structuredTable.title")}
