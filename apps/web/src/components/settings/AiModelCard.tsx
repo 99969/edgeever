@@ -136,7 +136,7 @@ export const AiModelCard = () => {
         <CollapsibleContent asChild>
           <CardContent className="grid gap-5 p-4 pt-0 sm:px-5 sm:pb-5">
             {settingsQuery.isLoading ? (
-              <p className="flex items-center gap-2 text-sm text-slate-500"><Loader2 className="h-4 w-4 animate-spin" />{t("common.loading")}</p>
+              <p className="flex items-center gap-2 text-xs leading-5 text-slate-500"><Loader2 className="h-4 w-4 animate-spin" />{t("common.loading")}</p>
             ) : (
               <>
                 {!encryptionConfigured ? (

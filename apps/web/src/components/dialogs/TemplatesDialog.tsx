@@ -57,7 +57,7 @@ export const TemplatesDialog = ({
       <DialogContent className="max-w-[620px] p-0 overflow-hidden border border-slate-200 bg-card shadow-lg rounded-lg">
         <DialogHeader className="flex flex-row items-start justify-between gap-3 border-b border-slate-200 px-5 py-4 text-left">
           <div className="min-w-0">
-            <DialogTitle className="flex items-center gap-2 text-base font-semibold text-slate-950">
+            <DialogTitle className="flex items-center gap-2 text-sm leading-6 font-semibold text-slate-950">
               <LayoutList className="h-4 w-4 text-slate-900" />
               {t("templates.title")}
             </DialogTitle>

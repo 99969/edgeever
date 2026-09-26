@@ -83,7 +83,7 @@ export const MathFormulaDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg gap-0 overflow-hidden p-0">
         <DialogHeader className="border-b border-slate-200 px-5 py-5 pr-12 text-left">
-          <DialogTitle className="flex items-center gap-2 text-base">
+          <DialogTitle className="flex items-center gap-2 text-sm leading-6">
             <Sigma className="h-5 w-5 text-slate-700" />
             {editing ? t("mathFormulaDialog.editTitle") : t("mathFormulaDialog.title")}
           </DialogTitle>
@@ -155,10 +155,10 @@ export const MathFormulaDialog = ({
                 previewHtml ? (
                   <span dangerouslySetInnerHTML={{ __html: previewHtml }} />
                 ) : (
-                  <p className="text-sm text-rose-700">{t("mathFormulaDialog.previewError")}</p>
+                  <p className="text-xs leading-5 text-rose-700">{t("mathFormulaDialog.previewError")}</p>
                 )
               ) : (
-                <p className="text-sm text-slate-400">{t("mathFormulaDialog.previewEmpty")}</p>
+                <p className="text-xs leading-5 text-slate-400">{t("mathFormulaDialog.previewEmpty")}</p>
               )}
             </div>
           </div>

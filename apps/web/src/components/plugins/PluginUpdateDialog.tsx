@@ -31,7 +31,7 @@ export const PluginUpdateDialog = ({
             <DialogTitle className="font-semibold text-slate-950">
               {t("plugins.updates.confirmTitle", { name: update.latestManifest.name })}
             </DialogTitle>
-            <DialogDescription className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+            <DialogDescription className="mt-1 flex items-center gap-2 text-xs leading-5 text-slate-500">
               <span>v{update.currentVersion}</span>
               <ArrowRight className="h-3.5 w-3.5" />
               <span>v{update.latestVersion}</span>
@@ -40,7 +40,7 @@ export const PluginUpdateDialog = ({
         </DialogHeader>
 
         <div className="grid gap-3 px-5 py-4 text-sm">
-          <p className="leading-6 text-slate-600">
+          <p className={`leading-6 text-slate-600 ${hasAddedAccess ? "text-sm" : "text-xs"}`}>
             {hasAddedAccess ? t("plugins.updates.addedAccessDescription") : t("plugins.updates.confirmDescription")}
           </p>
           {update.addedPermissions.length > 0 ? (

@@ -209,7 +209,7 @@ export const ShareNoteImageDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[94vh] max-w-5xl gap-0 overflow-hidden p-0">
         <DialogHeader className="border-b border-slate-200 px-5 py-3.5 pr-12 text-left">
-          <DialogTitle className="flex items-center gap-2 text-base font-semibold">
+          <DialogTitle className="flex items-center gap-2 text-sm leading-6 font-semibold">
             <Share2 className="h-4.5 w-4.5 text-slate-700" />
             {t("editor.imageShare.title")}
           </DialogTitle>
@@ -226,11 +226,11 @@ export const ShareNoteImageDialog = ({
                 src={previewUrl}
               />
             ) : error ? (
-              <div className="flex min-h-64 items-center justify-center text-sm text-rose-600" role="alert">
+              <div className="flex min-h-64 items-center justify-center text-xs leading-5 text-rose-600" role="alert">
                 {t("editor.imageExport.error")}
               </div>
             ) : (
-              <div className="flex min-h-64 items-center justify-center gap-2 text-sm text-slate-500" role="status">
+              <div className="flex min-h-64 items-center justify-center gap-2 text-xs leading-5 text-slate-500" role="status">
                 <LoaderCircle className="h-5 w-5 animate-spin text-slate-500" />
                 {t("editor.imageShare.generating")}
               </div>

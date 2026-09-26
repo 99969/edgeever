@@ -85,11 +85,11 @@ export const RevisionHistoryDialog = ({
       <DialogContent className="grid max-h-[88dvh] max-w-[1120px] grid-rows-[auto_minmax(0,1fr)] gap-0 overflow-hidden rounded-lg border border-slate-200 bg-card p-0 shadow-xl">
         <DialogHeader className="border-b border-slate-200 px-5 py-4 pr-12 text-left">
           <div className="min-w-0">
-            <DialogTitle className="flex items-center gap-2 text-lg font-semibold text-slate-950">
+            <DialogTitle className="flex items-center gap-2 text-sm leading-7 font-semibold text-slate-950">
               <History className="h-5 w-5 text-slate-700" />
               {t("revisions.title")}
             </DialogTitle>
-            <DialogDescription className="mt-1 truncate text-sm text-slate-500">
+            <DialogDescription className="mt-1 truncate text-xs leading-5 text-slate-500">
               {getMemoTitle(memo.title)}
             </DialogDescription>
           </div>
@@ -133,9 +133,9 @@ export const RevisionHistoryDialog = ({
                 {t("revisions.timeline")}
               </div>
               {revisionsQuery.isLoading ? (
-                <div className="px-2 py-8 text-center text-sm text-slate-500">{t("revisions.loading")}</div>
+                <div className="px-2 py-8 text-center text-xs leading-5 text-slate-500">{t("revisions.loading")}</div>
               ) : revisions.length === 0 ? (
-                <div className="rounded-md border border-dashed border-slate-300 px-4 py-8 text-center text-sm text-slate-500">
+                <div className="rounded-md border border-dashed border-slate-300 px-4 py-8 text-center text-xs leading-5 text-slate-500">
                   {t("revisions.empty")}
                 </div>
               ) : (
@@ -230,7 +230,7 @@ export const RevisionHistoryDialog = ({
                     })}
                   </div>
                 ) : (
-                  <div className="flex h-40 items-center justify-center text-sm text-slate-400">
+                  <div className="flex h-40 items-center justify-center text-xs leading-5 text-slate-400">
                     {t("revisions.emptyMemo")}
                   </div>
                 )}

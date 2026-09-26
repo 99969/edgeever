@@ -372,7 +372,7 @@ export const SettingsPane = ({
                       {deployedUpdateUnseen ? <span className="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-emerald-500 ring-2 ring-card" /> : null}
                     </span>
                     <span className="min-w-0">
-                      <span className="block truncate text-sm font-semibold">{t("systemInfo.title")}</span>
+                      <span className="block truncate text-xs font-normal leading-5">{t("systemInfo.title")}</span>
                       <span className="mt-0.5 block truncate text-xs text-slate-500">{t("systemInfo.description")}</span>
                     </span>
                   </span>

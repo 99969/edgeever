@@ -66,7 +66,7 @@ export const AiTagSuggestionPromptCard = () => {
         <CollapsibleContent asChild>
           <CardContent className="grid gap-3 px-4 pb-4 pt-0">
             {settingsQuery.isLoading ? (
-              <p className="flex items-center gap-2 text-sm text-slate-500">
+              <p className="flex items-center gap-2 text-xs leading-5 text-slate-500">
                 <Loader2 className="h-4 w-4 animate-spin" />{t("common.loading")}
               </p>
             ) : (

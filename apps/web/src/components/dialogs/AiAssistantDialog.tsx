@@ -737,7 +737,7 @@ export const AiAssistantDialog = ({
             ) : null}
             {showInstructionComposer || showSourceComposer ? (
             <div className="grid gap-2">
-              <label className="grid gap-1.5 text-sm font-medium text-slate-700">
+              <label className="grid gap-1.5 text-xs font-normal leading-5 text-slate-700">
                 {t(showInstructionComposer
                   ? (hasSelection ? "aiAssistant.customInstructionSelected" : "aiAssistant.customInstruction")
                   : "aiAssistant.inputContent")}
@@ -776,7 +776,7 @@ export const AiAssistantDialog = ({
             ) : null}
             <div className="grid gap-2">
               <div className="flex items-center justify-between gap-3">
-                <span className="text-sm font-medium text-slate-700">{t("aiAssistant.actionLabel")}</span>
+                <span className="text-xs font-normal leading-5 text-slate-700">{t("aiAssistant.actionLabel")}</span>
                 {onOpenPromptLibrary ? (
                   <button
                     type="button"
@@ -849,7 +849,7 @@ export const AiAssistantDialog = ({
             </div>
             {promptNeedsTargetLanguage(effectiveParameterKind) ? (
               <div className="grid gap-1.5">
-                <span className="text-sm font-medium text-slate-700">{t("aiAssistant.targetLanguage")}</span>
+                <span className="text-xs font-normal leading-5 text-slate-700">{t("aiAssistant.targetLanguage")}</span>
                 <Select value={targetLanguage} onValueChange={(value) => {
                   const nextTargetLanguage = value as TargetLanguage;
                   setTargetLanguage(nextTargetLanguage);
@@ -880,7 +880,7 @@ export const AiAssistantDialog = ({
             ) : null}
             {promptNeedsTone(effectiveParameterKind) ? (
               <div className="grid gap-1.5">
-                <span className="text-sm font-medium text-slate-700">{t("aiAssistant.tone")}</span>
+                <span className="text-xs font-normal leading-5 text-slate-700">{t("aiAssistant.tone")}</span>
                 <Select value={tone} onValueChange={(value) => {
                   const nextTone = value as AiTone;
                   setTone(nextTone);
@@ -974,7 +974,7 @@ export const AiAssistantDialog = ({
             </div>
             <div className="grid gap-1.5">
               <div className="flex items-center justify-between gap-3">
-                <span className="text-sm font-medium text-slate-700">{t("aiAssistant.result")}</span>
+                <span className="text-xs font-normal leading-5 text-slate-700">{t("aiAssistant.result")}</span>
                 {isGenerating ? (
                   <span className="flex items-center gap-1.5 text-xs font-medium text-slate-600">
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />{t("aiAssistant.generating")}
@@ -1002,7 +1002,7 @@ export const AiAssistantDialog = ({
             </div>
             {output && !isGenerating ? (
               <div className="grid gap-1.5 rounded-lg border border-slate-200 bg-card p-3">
-                <span className="text-sm font-medium text-slate-700">{t("aiAssistant.refine")}</span>
+                <span className="text-xs font-normal leading-5 text-slate-700">{t("aiAssistant.refine")}</span>
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <input
                     className="h-10 min-w-0 flex-1 rounded-md border border-slate-200 bg-card px-3 text-sm outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"
@@ -1070,7 +1070,7 @@ export const AiAssistantDialog = ({
               <DialogTitle>{t("aiAssistant.saveAsPromptTitle")}</DialogTitle>
               <DialogDescription>{t("aiPrompts.description")}</DialogDescription>
             </DialogHeader>
-            <label className="grid gap-1.5 text-sm font-medium text-slate-700">
+            <label className="grid gap-1.5 text-xs font-normal leading-5 text-slate-700">
               {t("aiAssistant.promptName")}
               <Input
                 value={saveName}
@@ -1081,7 +1081,7 @@ export const AiAssistantDialog = ({
                 autoFocus
               />
             </label>
-            <label className="grid gap-1.5 text-sm font-medium text-slate-700">
+            <label className="grid gap-1.5 text-xs font-normal leading-5 text-slate-700">
               {t("aiAssistant.promptDescription")}
               <Input
                 value={saveDescription}

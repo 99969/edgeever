@@ -83,7 +83,7 @@ export const ExternalLinkDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md gap-0 overflow-hidden p-0">
         <DialogHeader className="border-b border-slate-200 px-5 py-5 pr-12 text-left">
-          <DialogTitle className="flex items-center gap-2 text-base">
+          <DialogTitle className="flex items-center gap-2 text-sm leading-6">
             <LinkIcon className="h-5 w-5 text-slate-700" />
             {canRemove ? t("externalLinkDialog.editTitle") : t("externalLinkDialog.title")}
           </DialogTitle>

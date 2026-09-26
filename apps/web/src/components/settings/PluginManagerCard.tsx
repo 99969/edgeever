@@ -242,7 +242,7 @@ const PluginDetailView = ({
             </section>
           ) : null}
 
-          {extension.error ? <div className="text-sm text-rose-600">{extension.error}</div> : null}
+          {extension.error ? <div className="text-xs leading-5 text-rose-600">{extension.error}</div> : null}
 
           <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
             {update ? (
@@ -483,7 +483,7 @@ export const PluginManagerCard = ({
               })}
             />
           ) : (
-            <div className="rounded-lg border border-dashed border-slate-200 p-8 text-center text-sm text-slate-500">
+            <div className="rounded-lg border border-dashed border-slate-200 p-8 text-center text-xs leading-5 text-slate-500">
               {t("plugins.details.notFound")}
             </div>
           )
