@@ -39,6 +39,7 @@ import { MemoEditorFocusModeButton, MemoEditorTopRowLeading, MemoEditorUpdatedLa
 import { MemoEditorToolbarDivider } from "@/components/MemoEditorToolbarChrome";
 import {
   MEMO_EDITOR_READING_GUTTER_CLASS_NAME,
+  MEMO_EDITOR_READING_GUTTER_PROPERTIES_CLASS_NAME,
   MEMO_EDITOR_TOP_ROW_CLASS_NAME,
   nextTitleStatusClearance,
 } from "@/components/MemoEditorChromeDensity";
@@ -4096,6 +4097,7 @@ const RichEditorPane = ({
         } as CSSProperties}
         className={cn(
           "edgeever-editor relative min-h-0 flex-1 bg-transparent",
+          MEMO_EDITOR_READING_GUTTER_PROPERTIES_CLASS_NAME,
           useMobilePlainTextEditor
             ? "overflow-visible"
             : useMarkdownSourceEditor
