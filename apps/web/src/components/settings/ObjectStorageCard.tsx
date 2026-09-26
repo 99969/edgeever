@@ -109,7 +109,7 @@ export const ObjectStorageCard = ({ demoMode }: { demoMode: boolean }) => {
                   onClick={() => { setProvider(item); testMutation.reset(); saveMutation.reset(); }}
                   className={cn(
                     "flex items-start gap-3 rounded-xl border p-3 text-left transition-colors",
-                    provider === item ? "border-emerald-500 bg-emerald-50/70" : "border-slate-200 hover:bg-slate-50",
+                    provider === item ? "border-slate-900 bg-slate-50" : "border-slate-200 hover:bg-slate-50",
                   )}
                 >
                   {item === "builtin" ? <Database className="mt-0.5 h-4 w-4 text-slate-900" /> : <Cloud className="mt-0.5 h-4 w-4 text-slate-900" />}

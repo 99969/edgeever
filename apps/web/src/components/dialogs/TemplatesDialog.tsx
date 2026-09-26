@@ -58,7 +58,7 @@ export const TemplatesDialog = ({
         <DialogHeader className="flex flex-row items-start justify-between gap-3 border-b border-slate-200 px-5 py-4 text-left">
           <div className="min-w-0">
             <DialogTitle className="flex items-center gap-2 text-base font-semibold text-slate-950">
-              <LayoutList className="h-4 w-4 text-emerald-700" />
+              <LayoutList className="h-4 w-4 text-slate-900" />
               {t("templates.title")}
             </DialogTitle>
             <DialogDescription className="mt-1 text-xs text-slate-500">
@@ -72,7 +72,7 @@ export const TemplatesDialog = ({
             <section>
               <h3 className="mb-2 text-xs font-bold text-slate-900">{t("templates.myTemplates")}</h3>
               {editingTemplate && (
-                <div className="mb-4 space-y-3 rounded-xl border border-emerald-200/80 bg-card p-4 shadow-xs">
+                <div className="mb-4 space-y-3 rounded-xl border border-slate-200 bg-card p-4 shadow-xs">
                   <h4 className="text-xs font-semibold text-slate-800">{t("templates.editTemplateTitle")}</h4>
                   <div className="grid gap-2.5 sm:grid-cols-2">
                     <Input value={draft.name} onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))} placeholder={t("templates.namePlaceholder")} />
@@ -81,7 +81,7 @@ export const TemplatesDialog = ({
                     <Input value={draft.tags} onChange={(event) => setDraft((current) => ({ ...current, tags: event.target.value }))} placeholder={t("templates.tagsPlaceholder")} />
                   </div>
                   <textarea
-                    className="min-h-36 w-full resize-y rounded-lg border border-slate-200 bg-card p-3 font-mono text-xs text-slate-900 outline-none focus-visible:border-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-500/20"
+                    className="min-h-36 w-full resize-y rounded-lg border border-slate-200 bg-card p-3 font-mono text-xs text-slate-900 outline-none focus-visible:border-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900/10"
                     value={draft.contentMarkdown}
                     onChange={(event) => setDraft((current) => ({ ...current, contentMarkdown: event.target.value }))}
                     placeholder={t("templates.contentPlaceholder")}
@@ -94,7 +94,7 @@ export const TemplatesDialog = ({
               )}
               <div className="grid gap-3 sm:grid-cols-2">
                 {savedTemplates.map((template) => (
-                  <div key={template.id} className="rounded-xl border border-slate-200 bg-card p-3.5 shadow-2xs hover:border-emerald-200 transition">
+                  <div key={template.id} className="rounded-xl border border-slate-200 bg-card p-3.5 shadow-2xs hover:border-slate-300 transition">
                     <button
                       className="block w-full text-left disabled:opacity-50"
                       type="button"
@@ -117,7 +117,7 @@ export const TemplatesDialog = ({
                       </div>
                       <button
                         type="button"
-                        className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 transition"
+                        className="text-xs font-semibold text-slate-800 hover:text-slate-950 transition"
                         disabled={!canCreateMemo || isCreating}
                         onClick={() => onUseSavedTemplate(template)}
                       >

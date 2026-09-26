@@ -430,7 +430,7 @@ export default function InfographicEditorPane({ memo, repository, readOnly, onBa
   return <div className="flex h-full min-h-0 flex-col bg-card text-foreground">
     <header className="flex flex-wrap items-center gap-2 border-b border-slate-200 px-4 py-3">
       <Button variant="ghost" size="icon" className="lg:hidden" onClick={onBackToList} aria-label={t("common.back")}><ChevronLeft className="h-4 w-4" /></Button>
-      <Presentation className="h-5 w-5 text-emerald-700" />
+      <Presentation className="h-5 w-5 text-slate-900" />
       <div className="min-w-40 flex-1"><MemoTitleInput value={title} onValueChange={setTitle} placeholder={t("infographic.name")} readOnly={readOnly} /></div>
       {readOnly ? <span className="text-xs text-slate-500">{t("infographic.readOnly")}</span> : <Button size="sm" disabled={!dirty || !ready || saving || Boolean(renderError) || (Boolean(syntax.trim()) && !previewReady)} onClick={() => void save()}>{saving ? t("infographic.saving") : t("infographic.save")}</Button>}
       <Button variant="outline" size="sm" disabled={!previewReady || Boolean(renderError)} onClick={() => void exportImage("svg")}><Download className="mr-1 h-4 w-4" />{t("infographic.exportSvg")}</Button>
@@ -443,7 +443,7 @@ export default function InfographicEditorPane({ memo, repository, readOnly, onBa
         <Conversation className="min-h-0 flex-1" aria-label={t("infographic.historyTitle")}>
           <ConversationContent className="gap-4 p-0 pb-5">
             {history.map((turn) => <div key={turn.id} className="space-y-2">
-              <Message from="user"><MessageContent className="whitespace-pre-wrap break-words group-[.is-user]:rounded-xl group-[.is-user]:bg-emerald-50 group-[.is-user]:px-3 group-[.is-user]:py-2">{turn.prompt}</MessageContent></Message>
+              <Message from="user"><MessageContent className="whitespace-pre-wrap break-words group-[.is-user]:rounded-xl group-[.is-user]:bg-slate-100 group-[.is-user]:px-3 group-[.is-user]:py-2">{turn.prompt}</MessageContent></Message>
               <Message from="assistant"><MessageContent className="w-full rounded-xl border border-slate-200 bg-card px-3 py-2 text-foreground">
                 <MessageResponse className="edgeever-infographic-chat-response break-words">{turn.response || (turn.kind === "clarified" ? t("infographic.historyClarified") : turn.kind === "failed" ? t("infographic.historyFailed") : t(turn.kind === "generated" ? "infographic.historyGenerated" : "infographic.historyRefined", { title: turn.resultTitle || t("infographic.name") }))}</MessageResponse>
                 {turn.decision && turn.decision !== turn.response && <p className="text-xs text-slate-600">{turn.decision}</p>}
@@ -454,8 +454,8 @@ export default function InfographicEditorPane({ memo, repository, readOnly, onBa
               </MessageContent></Message>
             </div>)}
             {activeTurn && <div className="space-y-2" aria-live="polite">
-              <Message from="user"><MessageContent className="whitespace-pre-wrap break-words group-[.is-user]:rounded-xl group-[.is-user]:bg-emerald-50 group-[.is-user]:px-3 group-[.is-user]:py-2">{activeTurn.prompt}</MessageContent></Message>
-              <Message from="assistant"><MessageContent className="w-full rounded-xl border border-emerald-200 bg-card px-3 py-2 text-foreground">
+              <Message from="user"><MessageContent className="whitespace-pre-wrap break-words group-[.is-user]:rounded-xl group-[.is-user]:bg-slate-100 group-[.is-user]:px-3 group-[.is-user]:py-2">{activeTurn.prompt}</MessageContent></Message>
+              <Message from="assistant"><MessageContent className="w-full rounded-xl border border-slate-200 bg-card px-3 py-2 text-foreground">
                 <MessageResponse className="edgeever-infographic-chat-response break-words" isAnimating={generating}>{activeTurn.response || activeTurn.question || t("infographic.generating")}</MessageResponse>
                 {activeTurn.decision && activeTurn.decision !== activeTurn.response && <p className="text-xs text-slate-600">{activeTurn.decision}</p>}
                 {activeTurn.template && <p className="text-xs text-slate-500">{activeTurn.template}</p>}
@@ -464,9 +464,9 @@ export default function InfographicEditorPane({ memo, repository, readOnly, onBa
           </ConversationContent>
           <ConversationScrollButton aria-label={t("infographic.scrollToBottom")} />
         </Conversation>
-        {!readOnly && <div className="shrink-0 rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
-          <label className="mb-2 block text-sm font-medium text-slate-800" htmlFor="infographic-prompt"><Sparkles className="mr-1 inline h-4 w-4 text-emerald-700" />{t(syntax.trim() ? "infographic.refine" : "infographic.describe")}</label>
-          <textarea id="infographic-prompt" maxLength={1000} disabled={generating} className="min-h-24 w-full rounded-md border border-slate-200 bg-card p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-60" placeholder={t(syntax.trim() ? "infographic.refinePrompt" : "infographic.prompt")} value={prompt} onChange={(event) => setPrompt(event.target.value)} onKeyDown={(event) => {
+        {!readOnly && <div className="shrink-0 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <label className="mb-2 block text-sm font-medium text-slate-800" htmlFor="infographic-prompt"><Sparkles className="mr-1 inline h-4 w-4 text-slate-700" />{t(syntax.trim() ? "infographic.refine" : "infographic.describe")}</label>
+          <textarea id="infographic-prompt" maxLength={1000} disabled={generating} className="min-h-24 w-full rounded-md border border-slate-200 bg-card p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-slate-900/20 disabled:opacity-60" placeholder={t(syntax.trim() ? "infographic.refinePrompt" : "infographic.prompt")} value={prompt} onChange={(event) => setPrompt(event.target.value)} onKeyDown={(event) => {
             if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing || event.keyCode === 229) return;
             event.preventDefault();
             if (!event.repeat && prompt.trim() && !generating) void generate();

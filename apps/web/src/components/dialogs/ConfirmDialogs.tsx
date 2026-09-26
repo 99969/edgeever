@@ -43,7 +43,7 @@ export const AppConfirmDialog = ({
     tone === "danger"
       ? "bg-rose-50 text-rose-700"
       : tone === "primary"
-        ? "bg-emerald-50 text-emerald-700"
+        ? "bg-slate-100 text-slate-800"
         : "bg-slate-100 text-slate-600";
   const confirmVariant = tone === "danger" ? "danger" : "solid";
   const Icon = tone === "danger" ? AlertTriangle : ShieldCheck;
@@ -177,7 +177,7 @@ export const NotebookNameDialog = ({
             <Input
               id="notebook-name-input"
               ref={inputRef}
-              className="mt-2 h-11 text-base focus-visible:border-emerald-300 focus-visible:ring-emerald-500/20"
+              className="mt-2 h-11 text-base focus-visible:border-slate-400 focus-visible:ring-slate-900/10"
               value={name}
               disabled={isSaving}
               maxLength={80}

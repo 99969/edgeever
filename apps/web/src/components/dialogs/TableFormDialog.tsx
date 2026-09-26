@@ -366,7 +366,7 @@ export const TableFormDialog = ({
             <label className="block space-y-1 text-sm">
               <span>{t("structuredTable.form.formDescription")}</span>
               <textarea
-                className="min-h-20 w-full rounded-md border border-slate-200 px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/70"
+                className="min-h-20 w-full rounded-md border border-slate-200 px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20"
                 value={draft.description}
                 onChange={(event) => changeText({ description: event.target.value })}
                 aria-label={t("structuredTable.form.formDescription")}

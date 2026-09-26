@@ -184,7 +184,7 @@ export const EditorTagPicker = ({ contentMarkdown, disabled, loadTags, title, va
                 className={aiStatus.kind === "error"
                   ? "inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-rose-700 outline-none transition hover:bg-rose-50 focus-visible:ring-2 focus-visible:ring-rose-500/20 disabled:opacity-50"
                   : aiStatus.kind === "success"
-                    ? "inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-emerald-50 text-emerald-700 outline-none transition focus-visible:ring-2 focus-visible:ring-slate-400/30 disabled:opacity-50"
+                    ? "inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-slate-100 text-slate-900 outline-none transition focus-visible:ring-2 focus-visible:ring-slate-400/30 disabled:opacity-50"
                     : "inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-slate-600 outline-none transition hover:bg-slate-100 hover:text-slate-950 focus-visible:ring-2 focus-visible:ring-slate-400/30 disabled:opacity-50"}
                 aria-label={aiDescription}
                 onClick={() => void generateAndApplyTags()}

@@ -3390,7 +3390,7 @@ const RichEditorPane = ({
     imageUploadState === "error"
       ? "bg-rose-50 text-rose-700"
       : imageUploadState !== "idle"
-        ? "bg-emerald-50 text-emerald-700"
+        ? "bg-slate-100 text-slate-700"
         : saveStateClassName;
 
   const updatedLabel = formatDateTime(memo.updatedAt);
@@ -3714,7 +3714,7 @@ const RichEditorPane = ({
                   "hidden rounded-md px-2 py-1 text-xs font-medium md:inline-flex",
                   imageUploadState === "error"
                     ? "bg-rose-50 text-rose-700"
-                    : "bg-emerald-50 text-emerald-700"
+                    : "bg-slate-100 text-slate-700"
                 )}
               >
                 {imageUploadState === "error"
@@ -3927,12 +3927,12 @@ const RichEditorPane = ({
                   <DropdownMenuItem
                     className={cn(
                       "flex h-9 w-full items-center gap-2 px-3 text-left text-xs hover:bg-slate-50 cursor-pointer outline-none",
-                      isMemoShared ? "bg-emerald-50 text-emerald-800" : "text-slate-700",
+                      isMemoShared ? "bg-workspace-selection text-slate-950" : "text-slate-700",
                     )}
                     disabled={isLocalMemoId(memo.id)}
                     onClick={() => setShareOpen(true)}
                   >
-                    <Share2 className={cn("h-4 w-4", isMemoShared ? "text-emerald-600" : "text-slate-500")} />
+                    <Share2 className={cn("h-4 w-4", isMemoShared ? "text-slate-950" : "text-slate-500")} />
                     {t(isLocalMemoId(memo.id) ? "sharing.afterSync" : isMemoShared ? "sharing.manage" : "sharing.action")}
                   </DropdownMenuItem>
                 )}
@@ -4171,7 +4171,7 @@ const RichEditorPane = ({
                 />
                 <div className="absolute right-3 top-3 flex gap-2">
                   <button
-                    className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-emerald-800 shadow-sm"
+                    className="rounded-full border border-slate-900 bg-slate-900 px-3 py-1.5 text-sm font-semibold text-slate-50 shadow-sm"
                     type="button"
                     onClick={() => void handleMobileClipboardInput()}
                   >
