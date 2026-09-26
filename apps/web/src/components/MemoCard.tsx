@@ -340,7 +340,7 @@ export const MemoCard = ({
           ? "edgeever-workspace-selection border-[var(--workspace-divider)] bg-workspace-selection lg:border-[var(--workspace-divider)] lg:bg-workspace-selection"
           : checked
             ? "bg-slate-50 ring-1 ring-slate-200 lg:border-[var(--workspace-divider)] lg:bg-[var(--workspace-selection)] lg:ring-0"
-            : "active:bg-slate-50 lg:hover:bg-white/70"
+            : "active:bg-slate-50 lg:hover:bg-workspace-hover"
       )}
     >
       <div className={cn("flex min-h-[132px] items-center", listDensity === "compact" && "min-h-[84px] lg:min-h-[76px]")}>
