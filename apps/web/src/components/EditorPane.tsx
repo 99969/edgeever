@@ -349,7 +349,7 @@ export const EditorPane = (props: EditorPaneProps) => {
 
   if (editingActive) {
     return (
-      <div className="flex h-full min-h-0 items-center justify-center bg-card text-sm font-medium text-slate-400">
+      <div className="flex h-full min-h-0 items-center justify-center bg-transparent text-sm font-medium text-slate-400">
         {t("editor.openEditor")}
       </div>
     );
@@ -3338,7 +3338,7 @@ const RichEditorPane = ({
 
   if (isSelectionMode) {
     return (
-      <div className="flex h-full min-w-0 flex-col bg-card">
+      <div className="flex h-full min-w-0 flex-col bg-transparent">
         {selectionActionBar}
       </div>
     );
@@ -3346,7 +3346,7 @@ const RichEditorPane = ({
 
   if (isLoading && !memo) {
     return (
-      <div className="flex h-full min-w-0 flex-col bg-card">
+      <div className="flex h-full min-w-0 flex-col bg-transparent">
         <EmptyEditorHeader />
         {selectionActionBar}
         <div className="flex min-h-0 flex-1 items-center justify-center text-sm text-slate-500">{t("editor.loading")}</div>
@@ -3356,7 +3356,7 @@ const RichEditorPane = ({
 
   if (!memo) {
     return (
-      <div className="flex h-full min-w-0 flex-col bg-card">
+      <div className="flex h-full min-w-0 flex-col bg-transparent">
         <EmptyEditorHeader />
         {selectionActionBar}
         <div className="flex min-h-0 flex-1 items-center justify-center px-8 text-center">

@@ -21,7 +21,7 @@ describe("application color system", () => {
     expect(globals).toContain("--workspace-canvas: #eef1f4;");
     expect(globals).toContain("--workspace-sidebar: #e7ebef;");
     expect(globals).toContain("--workspace-memo-list: #f4f6f8;");
-    expect(globals).toContain("--workspace-editor: #ffffff;");
+    expect(globals).toContain("--workspace-editor: #f8fafb;");
     expect(globals).toContain("--workspace-selection: #dde3e9;");
     expect(globals).toContain("--color-workspace-canvas: var(--workspace-canvas);");
     expect(globals).toContain("--workspace-hover: color-mix(in srgb, var(--workspace-sidebar) 40%, white);");
@@ -37,6 +37,8 @@ describe("application color system", () => {
     expect(globals).not.toContain("--slate-500-rgb: 100 116 139;");
     expect(contrastRatio("#222222", "#ffffff")).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio("#737373", "#ffffff")).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio("#27272a", "#f8fafb")).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio("#737373", "#f8fafb")).toBeGreaterThanOrEqual(4.5);
   });
 
   test("keeps dark workspace surfaces distinct without blue-black color casts", () => {

@@ -294,7 +294,7 @@ html.dark[data-edgeever-environment="demo"] body::after {
     --workspace-canvas: #eef1f4;
     --workspace-sidebar: #e7ebef;
     --workspace-memo-list: #f4f6f8;
-    --workspace-editor: #ffffff;
+    --workspace-editor: #f8fafb;
     --workspace-divider: #e1e5ea;
     --workspace-memo-divider: #e6eaee;
     --workspace-selection: #dde3e9;
