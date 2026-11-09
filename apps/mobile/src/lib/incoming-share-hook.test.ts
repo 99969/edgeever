@@ -165,38 +165,13 @@ describe("incoming share hook", () => {
   });
 });
 
-const workspaceShareEffectBody = () => {
+test("workspace finishes the accepted clip when resolved payloads rerun its effect", async () => {
   const source = readFileSync(new URL("../screens/WorkspaceScreen.tsx", import.meta.url), "utf8");
-  const marker = "  useEffect(() => {";
-  const start = source.indexOf(`${marker}\n    if (incomingShareIsResolving || shareImportKind)`);
-  const end = source.indexOf("  }, [", start);
+  const start = source.indexOf("  useEffect(() => {\n    if (incomingShareIsResolving)");
+  const end = source.indexOf("  }, [\n    createOpen,", start);
   expect(start).toBeGreaterThan(-1);
   expect(end).toBeGreaterThan(start);
-  return new Bun.Transpiler({ loader: "ts" }).transformSync(source.slice(start + marker.length, end));
-};
-
-test("workspace reports a share that could not be copied for lack of storage", () => {
-  const alerts: unknown[][] = [];
-  let handled = 0;
-  const context = {
-    incomingShareIsResolving: false,
-    shareImportKind: null,
-    incomingShareError: { code: "ERR_WECHAT_ARCHIVE_STORAGE" },
-    processedShareUrlRef: { current: null },
-    getWeChatArchiveErrorCode: (error: { code: string }) => error.code,
-    WECHAT_ARCHIVE_STORAGE_HINT: "释放一些空间",
-    Alert: { alert: (...args: unknown[]) => alerts.push(args) },
-    onIncomingShareHandledRef: { current: () => { handled++; } },
-  };
-  const run = () => new Function(...Object.keys(context), workspaceShareEffectBody())(...Object.values(context));
-  run();
-  run();
-  expect(alerts).toEqual([["无法导入微信聊天记录", "释放一些空间"]]);
-  expect(handled).toBe(1);
-});
-
-test("workspace finishes the accepted clip when resolved payloads rerun its effect", async () => {
-  const effectBody = workspaceShareEffectBody();
+  const effectBody = source.slice(start + "  useEffect(() => {".length, end);
   const request = deferred();
   const opened: unknown[] = [];
   let importing = false;
@@ -208,18 +183,13 @@ test("workspace finishes the accepted clip when resolved payloads rerun its effe
     incomingSharePayloads: article,
     incomingShareUrl: article[0]!.value,
     sharedImages: [],
-    sharedWeChatArchive: null,
-    shareImportKind: null as string | null,
     notebooks: [{}],
     notebooksQuery: { isSuccess: true },
     processedShareUrlRef: { current: null },
     incomingShareTaskRef: { current: null },
     resolvedLocale: "zh-CN",
     isWeChatArticleUrl: () => false,
-    setShareImportKind: (value: string | null) => {
-      context.shareImportKind = value;
-      importing = value !== null;
-    },
+    setIsImportingShare: (value: boolean) => { importing = value; },
     buildMobileWebClipDraft: () => request.promise,
     openIncomingClipDraft: (draft: unknown) => { opened.push(draft); },
     onIncomingShareHandledRef: { current: () => { handled++; } },
@@ -242,9 +212,12 @@ test("workspace finishes the accepted clip when resolved payloads rerun its effe
 });
 
 describe("consecutive shares while the create editor stays open", () => {
-  const effectBody = workspaceShareEffectBody();
+  const source = readFileSync(new URL("../screens/WorkspaceScreen.tsx", import.meta.url), "utf8");
+  const start = source.indexOf("  useEffect(() => {\n    if (incomingShareIsResolving)");
+  const end = source.indexOf("  }, [\n    createOpen,", start);
+  const effectBody = source.slice(start + "  useEffect(() => {".length, end);
 
-  test.each(["article", "image", "wechat"])("holds a new %s share until the previous note is saved and unmounted", (kind) => {
+  test.each(["article", "image"])("holds a new %s share until the previous note is saved and unmounted", (kind) => {
     const images = kind === "image" ? [{ uri: "file:///cache/second.jpg" }] : [];
     let finishRequested = false;
     let nextEditorOpened = false;
@@ -258,8 +231,6 @@ describe("consecutive shares while the create editor stays open", () => {
       incomingSharePayloads: article,
       incomingShareUrl: article[0]!.value,
       sharedImages: images,
-      sharedWeChatArchive: kind === "wechat" ? { uri: "file:///cache/chat.zip" } : null,
-      shareImportKind: null,
       notebooks: [{}],
       notebooksQuery: { isSuccess: true },
       processedShareUrlRef: { current: "https://www.zhihu.com/pin/previous" },
