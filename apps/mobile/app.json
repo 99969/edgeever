@@ -81,14 +81,14 @@
             "enabled": true,
             "multipleShareMimeTypes": [
               "text/plain",
+              "image/*"
+            ],
+            "singleShareMimeTypes": [
+              "text/plain",
               "image/*",
               "application/zip",
               "application/x-zip-compressed",
               "application/octet-stream"
-            ],
-            "singleShareMimeTypes": [
-              "text/plain",
-              "image/*"
             ]
           }
         }

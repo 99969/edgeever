@@ -8,12 +8,12 @@ body:
       value: |
         Describe what you cannot do today and how you want it to work. GitHub Issues are public. Do not include passwords, tokens, instance URLs, or note contents.
 
-        System information helps us check whether your version already supports the feature.
+        System information shows whether the current version already supports this. Copy it from Settings → System information and paste it here.
   - type: dropdown
     id: client
     attributes:
-      label: Target area
-      description: Select the clients that should support this feature. Choose Server for backend, API, or self-hosting features.
+      label: Which client
+      description: Which client should have this?
       multiple: true
       options:
         - Web
@@ -23,7 +23,6 @@ body:
         - Android
         - iOS
         - Browser extension
-        - Server
     validations:
       required: true
   - type: textarea
@@ -45,7 +44,7 @@ body:
     id: system-info
     attributes:
       label: System information
-      description: Paste the text copied from Settings → System information. In-app feedback fills this in automatically. For server-only requests, enter the instance version and deployment platform, or write "Unknown".
+      description: Paste the text copied from Settings → System information. In-app feedback fills this in automatically.
       placeholder: |
         - Client version: v1.93.0
         - System: Android

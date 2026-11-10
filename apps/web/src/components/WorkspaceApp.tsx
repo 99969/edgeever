@@ -115,7 +115,6 @@ import { isNotebookNotEmptyError } from "@/lib/notebook-delete";
 import { getPersistentDataScopeOrigin } from "@/lib/app-page-path";
 import { createRepository } from "@/lib/repository";
 import { notifyRepositoryMutation } from "@/lib/repository-events";
-import { NOTEBOOK_LIST_REFRESHED_EVENT, type NotebookListRefresh } from "@/lib/sync-events";
 import {
   refreshWorkspaceData,
   shouldNavigateHomeWhenOpeningMemo,
@@ -713,15 +712,6 @@ export const WorkspaceApp = ({
       setIsManualMemoSyncing(false);
     }
   }, [refreshWorkspaceFromServer]);
-
-  useEffect(() => {
-    const applyNotebookRefresh = (event: Event) => {
-      const { scope, notebooks } = (event as CustomEvent<NotebookListRefresh>).detail;
-      if (scope === localDataScope) queryClient.setQueryData(["notebooks"], { notebooks });
-    };
-    window.addEventListener(NOTEBOOK_LIST_REFRESHED_EVENT, applyNotebookRefresh);
-    return () => window.removeEventListener(NOTEBOOK_LIST_REFRESHED_EVENT, applyNotebookRefresh);
-  }, [localDataScope, queryClient]);
 
   const notebooksQuery = useQuery({
     queryKey: ["notebooks"],

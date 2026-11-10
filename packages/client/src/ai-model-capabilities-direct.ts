@@ -75,10 +75,8 @@ const detectFromService = async (
     }
     // OpenRouter and DeepSeek put limits on the model list; LiteLLM serves them on /model/info.
     // The list itself must answer: it is the same endpoint "Discover models" uses.
-    // Only an unsupported /model/info path means "no limits"; authentication, rate-limit, server
-    // and network errors there stay "unknown" (thrown), so a limit saved earlier is not replaced.
     return await read(`${base}/models`, "models", false)
-      ?? await read(`${base}/model/info`, "litellm-model-info", true)
+      ?? await read(`${base}/model/info`, "litellm-model-info", true).catch(() => null)
       ?? AI_MODEL_CAPABILITY_NONE;
   } catch (error) {
     if (signal?.aborted) throw error;
