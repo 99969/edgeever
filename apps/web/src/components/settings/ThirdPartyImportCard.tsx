@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { ChevronRight, FileText, LoaderCircle, Upload } from "lucide-react";
+import { ChevronRight, LoaderCircle, Upload } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +10,9 @@ import {
   SETTINGS_CARD_ICON_CLASSNAME,
   SETTINGS_CARD_TITLE_CLASSNAME,
 } from "./settings-ui";
-export const ThirdPartyImportCard = ({ controller, defaultNotebookId }: { controller: NoteImportController; defaultNotebookId: string | null }) => {
+import { ThirdPartyImportDialog } from "./ThirdPartyImportDialog";
+
+export const ThirdPartyImportCard = ({ controller, onOpenMemo }: { controller: NoteImportController; onOpenMemo: (memoId: string, notebookId: string) => void }) => {
   const { t, i18n } = useTranslation();
   const state = useSyncExternalStore(controller.subscribe, controller.getSnapshot);
   const running = state.phase === "running" || state.phase === "scanning";
@@ -22,14 +24,14 @@ export const ThirdPartyImportCard = ({ controller, defaultNotebookId }: { contro
         <div className="flex items-center justify-between gap-3">
           <CardTitle className={SETTINGS_CARD_TITLE_CLASSNAME}>
             <Upload className={SETTINGS_CARD_ICON_CLASSNAME} />
-            {t("noteImport.importNotes")}
+            {t("noteImport.title")}
           </CardTitle>
           <Button
             type="button"
             size="sm"
             variant="outline"
             className="shrink-0 text-xs font-normal"
-            onClick={() => controller.open(undefined, defaultNotebookId ?? "")}
+            onClick={() => controller.open()}
           >
             {t(running ? "noteImport.viewProgress" : "noteImport.open")}
           </Button>
@@ -62,10 +64,10 @@ export const ThirdPartyImportCard = ({ controller, defaultNotebookId }: { contro
             <button
               key={format}
               type="button"
-              onClick={() => controller.open(format, defaultNotebookId ?? "")}
+              onClick={() => controller.open(format)}
               className="group flex min-w-0 cursor-pointer items-center gap-2.5 rounded-lg border border-border/70 bg-muted/20 px-3 py-2 text-left transition-colors hover:border-border hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 focus-visible:ring-offset-1"
             >
-              {logo ? <img src={logo} alt="" className="size-4 shrink-0 object-contain" /> : <FileText aria-hidden="true" className="size-4 shrink-0" />}
+              <img src={logo} alt="" className="size-4 shrink-0 object-contain" />
               <div className="min-w-0 flex-1">
                 <div className="truncate text-xs font-medium text-foreground">{label}</div>
                 <div className="truncate font-mono text-[11px] leading-4 text-muted-foreground">{formatHint}</div>
@@ -78,6 +80,7 @@ export const ThirdPartyImportCard = ({ controller, defaultNotebookId }: { contro
           ))}
         </div>
       </CardContent>
+      <ThirdPartyImportDialog controller={controller} state={state} onOpenMemo={onOpenMemo} />
     </Card>
   );
 };

@@ -1,5 +1,4 @@
 import type { ImportDocument, ImportFile, ImportFormat, ImportIndex, ImportIssue, ImportNote, ImportNotebook, ImportOptions, ImportReference, ImportResource, ImportSummary, SourceEntry } from "./types";
-import { MARKDOWN_DESTINATION_REQUIRED } from "./types";
 import { IMPORT_CHUNK_BYTES } from "./types";
 import { indexItems } from "./index-store";
 import { addIssue, basename, dirname, ImportSources, normalPath, stem } from "./sources";
@@ -38,13 +37,9 @@ export class NoteImportSession {
   private nextNote = 0;
   constructor(readonly format: ImportFormat, files: ImportFile[], readonly index: ImportIndex, id: string = crypto.randomUUID(), private options: ImportOptions = {}) {
     this.id = id;
-    this.sources = new ImportSources(files, index, format === "markdown");
+    this.sources = new ImportSources(files, index);
   }
   private async notebook(path: string) {
-    if (this.format === "markdown") {
-      path = [this.options.markdownRootName, path].filter(Boolean).join("/");
-      if (!path) return "";
-    }
     if (!path && (this.format === "notion" || this.format === "siyuan")) {
       if (!await this.index.get("notebook", path)) {
         const name = this.format === "notion" ? "Notion" : "SiYuan";
@@ -89,7 +84,6 @@ export class NoteImportSession {
   }
   async scan(signal?: AbortSignal, progress?: (path: string) => void): Promise<ImportSummary> {
     try {
-      if (this.format === "markdown" && !this.options.markdownRootName) await this.index.put("alias", MARKDOWN_DESTINATION_REQUIRED, true);
       await this.sources.scan(signal, progress, this.format === "notion");
       for await (const entry of indexItems<SourceEntry>(this.index, "entry")) {
         signal?.throwIfAborted(); progress?.(entry.path);
@@ -182,7 +176,7 @@ export class NoteImportSession {
           for (const resource of note.resources) {
             const max = resource.mimeType.startsWith("image/") ? 100 * 1024 * 1024 : 1024 * 1024 * 1024;
             if (resource.byteSize <= 0 || resource.byteSize > max) await addIssue(this.index, "resourceSize", note.path, "error", resource.filename);
-            if (this.format !== "markdown") await this.index.put("alias", `used:${resource.entryKey}`, true);
+            await this.index.put("alias", `used:${resource.entryKey}`, true);
           }
           await this.index.put("note", note.key, note);
         }
@@ -282,10 +276,6 @@ export class NoteImportSession {
   }
   private async resolveReference(note: ImportNote, ref: ImportReference): Promise<ImportResource | undefined> {
     let href = ref.href;
-    if (this.format === "markdown" && ref.wiki) {
-      await addIssue(this.index, "noteLink", note.path, "warning", href);
-      return;
-    }
     if (this.format === "siyuan" && /^siyuan:\/\/blocks\//i.test(href)) {
       await addIssue(this.index, "noteLink", note.path, "warning", href);
       return;
@@ -338,20 +328,11 @@ export class NoteImportSession {
       const isMarkdownAsset = this.format === "siyuan" && isSiYuanAsset(relative);
       if (!entry && !isMarkdownAsset && /\.(?:md|markdown)$/i.test(href)) { await addIssue(this.index, "noteLink", note.path, "warning", href); return; }
       if (!entry) {
-        const allowMissing = this.format === "notion" || this.format === "siyuan" || this.format === "markdown";
+        const allowMissing = this.format === "notion" || this.format === "siyuan";
         await addIssue(this.index, allowMissing ? "missingAttachment" : "missingResource", note.path, allowMissing ? "warning" : "error", ref.href);
         return;
       }
-      const targetNote = await this.index.get<string>("alias", `note:${entry.key}`);
-      if (targetNote) {
-        if (this.format === "markdown" && !ref.image) {
-          ref.noteKey = targetNote;
-          if (ref.suffix) await addIssue(this.index, "noteLinkLocation", note.path, "warning", ref.href);
-        } else {
-          await addIssue(this.index, "noteLink", note.path, "warning", href);
-        }
-        return;
-      }
+      if (await this.index.get("alias", `note:${entry.key}`)) { await addIssue(this.index, "noteLink", note.path, "warning", href); return; }
       return { key: entry.key, entryKey: entry.key, filename: basename(entry.path), mimeType: mimeFromName(entry.path), byteSize: entry.size };
     } catch { await addIssue(this.index, "outsideRoot", note.path, "error", ref.href); }
   }
@@ -390,11 +371,9 @@ export class NoteImportSession {
       return { note, contentMarkdown };
     }
     let text = await this.sources.text(entry, signal);
-    const localImagesOnly = this.format === "markdown";
-    const mediaTag = localImagesOnly ? /<img(?=[\s/>])/i : /<(?:img|audio|video|source)\b/i;
-    if ((localImagesOnly || this.format === "notion" || this.format === "siyuan") && mediaTag.test(text)) {
+    if ((this.format === "notion" || this.format === "siyuan") && /<(?:img|audio|video|source)\b/i.test(text)) {
       const { normalizeExportMedia } = await import("./markdown-export-html");
-      text = normalizeExportMedia(text, localImagesOnly ? "local-images" : "all");
+      text = normalizeExportMedia(text);
     }
     return { note, contentMarkdown: note.raw ? readRaw(text)!.body : text };
   }

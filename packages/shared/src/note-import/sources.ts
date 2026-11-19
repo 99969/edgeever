@@ -65,7 +65,7 @@ class StagedZipReader extends Reader<null> {
 export class ImportSources {
   private zips = new Map<number, { reader: ZipReader<unknown>; entries: Map<string, Entry> }>();
   private zipRoots = new Map<number, string>();
-  constructor(private files: ImportFile[], private index: ImportIndex, private exactPathsOnly: boolean) {}
+  constructor(private files: ImportFile[], private index: ImportIndex) {}
   private async add(entry: SourceEntry) {
     let path: string;
     try { path = normalPath(entry.path); } catch { await addIssue(this.index, "outsideRoot", entry.path); return; }
@@ -75,7 +75,6 @@ export class ImportSources {
     if (await this.index.get("entry", path)) { await addIssue(this.index, "duplicatePath", path); return; }
     entry = { ...entry, key: path, path };
     await this.index.put("entry", path, entry);
-    if (this.exactPathsOnly) return path;
     const name = basename(path);
     const aliases = await this.index.get<string[]>("alias", name) ?? [];
     await this.index.put("alias", name, [...aliases, path]);

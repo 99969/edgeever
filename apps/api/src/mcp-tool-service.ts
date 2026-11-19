@@ -41,7 +41,7 @@ import { audit, auditStatement } from "./audit";
 import type { AppContext, AuditActor, AuthContext, Bindings } from "./api-context";
 import { AppError } from "./app-error";
 import { isDemoModeEnabled } from "./demo-mode";
-import { createId, isoNow, parseJsonArray } from "./entity-utils";
+import { createId, isoNow } from "./entity-utils";
 import {
   decodeBase64Data,
   encodeBase64Data,
@@ -137,7 +137,6 @@ export type McpToolDependencies = {
     workspaceId: string,
     memoId: string,
   ) => Promise<MemoRevisionSourceRow | null>;
-  getTableMemoSource: typeof import("./memo-service").getTableMemoSource;
   getMemosForBulkAction: (
     database: DatabaseAdapter,
     workspaceId: string,
@@ -259,7 +258,6 @@ export const callMcpTool = async (
     getCurrentWorkspaceIdentity,
     getMemoDetail,
     getMemoDetailRow,
-    getTableMemoSource,
     getMemosForBulkAction,
     importMemosRecord,
     listMemosForMcp,
@@ -336,7 +334,7 @@ export const callMcpTool = async (
     case "get_table_records": {
       assertScope(auth, "read:memos");
       const memoId = getRequiredString(args.memoId, "memoId");
-      const memo = await getTableMemoSource(c.env.storage.db, auth.workspaceId, memoId);
+      const memo = await getMemoDetail(c.env.storage.db, auth.workspaceId, memoId);
       if (!memo) throw new AppError("not_found", "Memo not found", 404);
       const document = parseTableDocument(memo.contentMarkdown);
       if (!document) throw new AppError("not_table", "Memo is not a structured table", 400);
@@ -381,7 +379,7 @@ export const callMcpTool = async (
       assertScope(auth, "write:memos");
       const memoId = getRequiredString(args.memoId, "memoId");
       const expectedRevision = requiredTableRevision(args.expectedRevision);
-      const memo = await getTableMemoSource(c.env.storage.db, auth.workspaceId, memoId);
+      const memo = await getMemoDetail(c.env.storage.db, auth.workspaceId, memoId);
       if (!memo) throw new AppError("not_found", "Memo not found", 404);
       const document = parseTableDocument(memo.contentMarkdown);
       if (!document) throw new AppError("not_table", "Memo is not a structured table", 400);
@@ -407,7 +405,7 @@ export const callMcpTool = async (
         expectedRevision,
         contentMarkdown: serializeTableDocument(next),
         contentJson: markdownToDoc(tableFallbackMarkdown(next)),
-        tags: parseJsonArray(memo.tags_json),
+        tags: memo.tags,
       }, getAuditActor(c), getActorLabel(c));
       if (!("memo" in result)) throw new AppError(result.error, result.message, result.status ?? 409);
       return { memoId, revision: result.memo.revision, fields: next.fields, ...impact };
@@ -418,7 +416,7 @@ export const callMcpTool = async (
       assertScope(auth, "write:memos");
       const memoId = getRequiredString(args.memoId, "memoId");
       const expectedRevision = requiredTableRevision(args.expectedRevision);
-      const memo = await getTableMemoSource(c.env.storage.db, auth.workspaceId, memoId);
+      const memo = await getMemoDetail(c.env.storage.db, auth.workspaceId, memoId);
       if (!memo) throw new AppError("not_found", "Memo not found", 404);
       const document = parseTableDocument(memo.contentMarkdown);
       if (!document) throw new AppError("not_table", "Memo is not a structured table", 400);
@@ -449,7 +447,7 @@ export const callMcpTool = async (
         expectedRevision,
         contentMarkdown: serializeTableDocument(next),
         contentJson: markdownToDoc(tableFallbackMarkdown(next)),
-        tags: parseJsonArray(memo.tags_json),
+        tags: memo.tags,
       }, getAuditActor(c), getActorLabel(c));
       if (!("memo" in result)) throw new AppError(result.error, result.message, result.status ?? 409);
       return {

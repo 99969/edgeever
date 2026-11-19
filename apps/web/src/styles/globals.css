@@ -1991,19 +1991,14 @@ html[data-edgeever-extension-theme] .edgeever-memo-divider {
   border-top: 1px solid var(--memo-content-divider-color);
 }
 
-/* Semantic merge boundaries — soft faded hairline to avoid visual clutter. */
+/* Semantic merge boundaries — stronger than decorative theme hairlines. */
 .ProseMirror hr.edgeever-merge-divider,
 .ProseMirror hr[data-edgeever-merge-divider] {
   margin: var(--memo-content-divider-spacing) 0;
-  height: 1px;
+  height: 0;
   border: 0;
-  background: linear-gradient(
-    to right,
-    transparent,
-    color-mix(in srgb, currentColor 20%, transparent) 16%,
-    color-mix(in srgb, currentColor 20%, transparent) 84%,
-    transparent
-  );
+  border-top: 2px solid var(--memo-content-divider-color);
+  background: transparent;
 }
 
 .ProseMirror img:not(.ProseMirror-separator),

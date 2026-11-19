@@ -173,8 +173,6 @@ describe("cross-platform Wrangler runner", () => {
     }))).toEqual({
       r2BucketName: "my-old-edgeever-bucket",
       authUsername: "owner",
-      sessionTtlDays: undefined,
-      authSecretNames: [],
     });
   });
 

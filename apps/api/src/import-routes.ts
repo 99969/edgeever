@@ -9,7 +9,7 @@ import { getActorLabel, getAuditActor, getWorkspaceId, requireScopes } from "./r
 
 const importSchema = z.object({
   importId: z.uuid(),
-  format: z.enum(["evernote", "obsidian", "joplin", "flomo", "notion", "siyuan", "markdown"]),
+  format: z.enum(["evernote", "obsidian", "joplin", "flomo", "notion", "siyuan"]),
   notebookId: z.string().trim().min(1),
   items: z.array(z.unknown()).min(1).max(25),
   dryRun: z.boolean().default(false),
